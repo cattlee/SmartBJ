@@ -1,6 +1,7 @@
 package com.itheima62.smartbj.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.animation.AlphaAnimation;
@@ -32,7 +33,7 @@ public class SplashActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		//去掉应用上边的标题
+		// 去掉标题
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		initView();// 初始化界面
 
@@ -45,7 +46,7 @@ public class SplashActivity extends Activity {
 	private void initEvent() {
 		// 1.监听动画播放完成的事件,只是一处用到该事件，则使用匿名类对象，若多处调用，则声明为成员变量
 		as.setAnimationListener(new AnimationListener() {
-			
+
 			@Override
 			public void onAnimationStart(Animation animation) {
 
@@ -58,14 +59,18 @@ public class SplashActivity extends Activity {
 
 			@Override
 			public void onAnimationEnd(Animation animation) {
-				//监听事件播完
-				//2.判断是进入主界面 还是向导界面    getApplicationContext()获取上下文
-				if (SpTools.getBoolean(getApplicationContext(), MyConstants.ISSETUP, false)) {
-					//true 说明已经设置过 直接进入上下文
+				// 监听事件播完
+				// 2.判断是进入主界面 还是向导界面 getApplicationContext()获取上下文
+				if (SpTools.getBoolean(getApplicationContext(),
+						MyConstants.ISSETUP, false)) {
+					// true 说明已经设置过 直接进入上下文
 					System.out.println("load main");
-				}else {
-					//false  没设置过  进入设置向导界面
-					System.out.println("guide view");
+				} else {
+					// false 没设置过 进入设置向导界面
+					// SplashActivity.this相当于内部类启动
+					Intent intent = new Intent(SplashActivity.this,
+							GuideActivity.class);
+					startActivity(intent);
 				}
 			}
 		});
