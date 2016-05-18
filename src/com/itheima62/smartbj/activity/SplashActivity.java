@@ -64,7 +64,9 @@ public class SplashActivity extends Activity {
 				if (SpTools.getBoolean(getApplicationContext(),
 						MyConstants.ISSETUP, false)) {
 					// true 说明已经设置过 直接进入上下文
-					System.out.println("load main");
+					Intent main=new Intent(SplashActivity.this,MainActivity.class);
+					startActivity(main);//启动主界面
+
 				} else {
 					// false 没设置过 进入设置向导界面
 					// SplashActivity.this相当于内部类启动
