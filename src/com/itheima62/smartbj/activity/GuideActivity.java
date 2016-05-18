@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
@@ -23,6 +24,7 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
 
 import com.itheima62.smartbj.R;
+import com.itheima62.smartbj.utils.DensityUtil;
 import com.itheima62.smartbj.utils.MyConstants;
 import com.itheima62.smartbj.utils.SpTools;
 
@@ -154,13 +156,15 @@ public class GuideActivity extends Activity
 			// 给点的容器Linearlayout初始化添加灰色点
 			View v_point = new View(getApplicationContext());
 			v_point.setBackgroundResource(R.drawable.gray_point);
-			// 设置灰色点的大小
-			LayoutParams params=new LayoutParams(10, 10);
+			
+			int dip =10;
+			// 设置灰色点的大小  单位px
+			LayoutParams params=new LayoutParams(DensityUtil.dip2px(getApplicationContext(),dip),DensityUtil.dip2px(getApplicationContext(),dip));//单位px  为设备像素
 
 			// 设置点与点直接的空隙
 			// 第一个点不需要指定
 			if (i != 0)// 过滤第一个点
-				params.leftMargin = 10;// px
+				params.leftMargin = 10;// dip
 			v_point.setLayoutParams(params);// 无缝隙的挨一起
 
 			// 添加灰色的点到线性布局中
