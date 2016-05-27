@@ -5,40 +5,36 @@ import android.content.SharedPreferences;
 
 /**
  * @author Administrator
- * @´´½¨Ê±¼ä 2015-7-4 ÉÏÎç10:40:52
- * @ÃèÊö TODO
+ * @åˆ›å»ºæ—¶é—´ 2015-7-4 ä¸Šåˆ10:40:52
+ * @æè¿° TODO
  *
- * @ svnÌá½»Õß£º$Author: gd $
- * @ Ìá½»Ê±¼ä: $Date: 2015-07-04 10:51:01 +0800 (Sat, 04 Jul 2015) $
- * @ µ±Ç°°æ±¾: $Rev: 5 $
+ * @ svnæäº¤è€…ï¼š$Author: gd $
+ * @ æäº¤æ—¶é—´: $Date: 2015-07-04 10:51:01 +0800 (Sat, 04 Jul 2015) $
+ * @ å½“å‰ç‰ˆæœ¬: $Rev: 5 $
  */
 public class SpTools
 {
 	/**
-	 * 
-	 * sharedPreferenceµÄ²Ù×÷Àà
 	 * @param key
-	 *        ¹Ø¼ü×Ö
+	 *        å…³é”®å­—
 	 * @param value
-	 *       ¶ÔÓ¦µÄÖµ
+	 *       å¯¹åº”çš„å€¼
 	 */
 	public static void setBoolean(Context context,String key,boolean value){
 		SharedPreferences sp = context.getSharedPreferences(MyConstants.CONFIGFILE, Context.MODE_PRIVATE);
-		sp.edit().putBoolean(key, value).commit();//Ìá½»±£´æ¼üÖµ¶Ô
+		sp.edit().putBoolean(key, value).commit();//æäº¤ä¿å­˜é”®å€¼å¯¹
 		
 	}
 	
 	/**
 	 * @param context
 	 * @param key
-	 *        ¹Ø¼ü×Ö
+	 *        å…³é”®å­—
 	 * @param defValue
-	 *        ÉèÖÃµÄÄ¬ÈÏÖµ
+	 *        è®¾ç½®çš„é»˜è®¤å€¼
 	 * @return
 	 */
 	public static boolean getBoolean(Context context,String key,boolean defValue){
-		//context.getSharedPreferences(,)»ñÈ¡SharedPreferences¶ÔÏó½øĞĞ´æ´¢¿ÉÒÔ±»Í¬Ò»³ÌĞòµÄÆäËû×é¼ş¹²Ïí
-		//µÚÒ»¸ö²ÎÊıÎª´æ´¢ÎÄ¼ş  µÚ¶ş¸ö²ÎÊı²Ù×÷ÀàĞÍ
 		SharedPreferences sp = context.getSharedPreferences(MyConstants.CONFIGFILE, Context.MODE_PRIVATE);
 		return sp.getBoolean(key, defValue);
 	}

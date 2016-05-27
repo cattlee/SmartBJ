@@ -3,6 +3,6 @@
     android:shape="oval">
 
     <corners android:radius="5dip"></corners>
-    <!-- 颜色设成灰色 -->
-    <solid android:color="#cccccc"></solid>
+    
+    <solid android:color="#CCCCCC"></solid>
 </shape>

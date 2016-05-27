@@ -1,3 +1,5 @@
+
+
 package com.itheima62.smartbj.activity;
 
 import android.app.Activity;
@@ -17,39 +19,38 @@ import com.itheima62.smartbj.utils.MyConstants;
 import com.itheima62.smartbj.utils.SpTools;
 
 /**
- * @author ltf
- * @´´½¨Ê±¼ä2016-5-16ÉÏÎç10:44:07
- * @¹¤³ÌÃûSmartBJ
- * @ÃèÊöTODO
- * @gitÌá½»Õß£º$Auther$
- * @Ìá½»Ê±¼ä£º${date ${time}
- * @µ±Ç°°æ±¾£º$Rev$
+ * @author Administrator
+ * @åˆ›å»ºæ—¶é—´ 2015-7-4 ä¸Šåˆ10:20:29
+ * @æè¿° æ™ºæ…§åŒ—äº¬çš„splashç•Œé¢ ï¼šä¸»è¦å®ç°äº†åŠ¨ç”»çš„æ•ˆæœ
+ * 
+ *     @ svnæäº¤è€…ï¼š$Author: gd $ @ æäº¤æ—¶é—´: $Date: 2015-07-04 14:16:48 +0800 (Sat, 04 Jul 2015) $ @ å½“å‰ç‰ˆæœ¬: $Rev: 7 $
  */
-public class SplashActivity extends Activity {
-	private ImageView iv_mainview;
-	private AnimationSet as;
+public class SplashActivity extends Activity 
+{
+	private ImageView		iv_mainview;
+	private AnimationSet	as;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		// È¥µô±êÌâ
+		
+		//å»æ‰æ ‡é¢˜
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		initView();// ³õÊ¼»¯½çÃæ
+		initView();// åˆå§‹åŒ–ç•Œé¢
 
-		startAnimation();// ¿ªÊ¼²¥·Å¶¯»­
+		startAnimation();// å¼€å§‹æ’­æ”¾åŠ¨ç”»
 
-		initEvent();// ³õÊ¼»¯½çÃæ
-
+		initEvent();// åˆå§‹åŒ–äº‹ä»¶
 	}
 
 	private void initEvent() {
-		// 1.¼àÌı¶¯»­²¥·ÅÍê³ÉµÄÊÂ¼ş,Ö»ÊÇÒ»´¦ÓÃµ½¸ÃÊÂ¼ş£¬ÔòÊ¹ÓÃÄäÃûÀà¶ÔÏó£¬Èô¶à´¦µ÷ÓÃ£¬ÔòÉùÃ÷Îª³ÉÔ±±äÁ¿
+		// 1.ç›‘å¬åŠ¨ç”»æ’­å®Œçš„äº‹ä»¶, åªæ˜¯ä¸€å¤„ç”¨çš„çš„äº‹ä»¶ï¼ŒåŒ¿åç±»å¯¹è±¡, å¤šå¤„å£°æ˜æˆæˆå‘˜å˜é‡
 		as.setAnimationListener(new AnimationListener() {
 
 			@Override
 			public void onAnimationStart(Animation animation) {
-
+				
 			}
 
 			@Override
@@ -59,78 +60,79 @@ public class SplashActivity extends Activity {
 
 			@Override
 			public void onAnimationEnd(Animation animation) {
-				// ¼àÌıÊÂ¼ş²¥Íê
-				// 2.ÅĞ¶ÏÊÇ½øÈëÖ÷½çÃæ »¹ÊÇÏòµ¼½çÃæ getApplicationContext()»ñÈ¡ÉÏÏÂÎÄ
-				if (SpTools.getBoolean(getApplicationContext(),
-						MyConstants.ISSETUP, false)) {
-					// true ËµÃ÷ÒÑ¾­ÉèÖÃ¹ı Ö±½Ó½øÈëÉÏÏÂÎÄ
-					Intent main=new Intent(SplashActivity.this,MainActivity.class);
-					startActivity(main);//Æô¶¯Ö÷½çÃæ
-
+				//ç›‘å¬åŠ¨ç”»æ’­å®Œ
+				// 2.åˆ¤æ–­è¿›å…¥å‘å¯¼ç•Œé¢è¿˜æ˜¯ä¸»ç•Œé¢
+				if (SpTools.getBoolean(getApplicationContext(), MyConstants.ISSETUP, false)){
+					//trueï¼Œè®¾ç½®è¿‡ ï¼Œç›´æ¥è¿›å…¥ä¸»ç•Œé¢
+					//è¿›å…¥ä¸»ç•Œé¢
+					Intent main = new Intent(SplashActivity.this,MainActivity.class);
+					startActivity(main);//å¯åŠ¨ä¸»ç•Œé¢
 				} else {
-					// false Ã»ÉèÖÃ¹ı ½øÈëÉèÖÃÏòµ¼½çÃæ
-					// SplashActivity.thisÏàµ±ÓÚÄÚ²¿ÀàÆô¶¯
-					Intent intent = new Intent(SplashActivity.this,
-							GuideActivity.class);
-					startActivity(intent);
+					//false æ²¡è®¾ç½®è¿‡ï¼Œè¿›å…¥è®¾ç½®å‘å¯¼ç•Œé¢
+
+					Intent intent = new Intent(SplashActivity.this,GuideActivity.class);
+					startActivity(intent);//å¯åŠ¨è®¾ç½®å‘å¯¼ç•Œé¢
 				}
+				//å…³é—­è‡ªå·±
+				finish();
 			}
 		});
-
 	}
 
 	/**
-	 * ¿ªÊ¼²¥·Å¶¯»­ Ğı×ª£¬²¥·Å£¬½¥±ä
+	 * å¼€å§‹æ’­æ”¾åŠ¨ç”»ï¼šæ—‹è½¬ï¼Œç¼©æ”¾ï¼Œæ¸å˜
 	 */
 	private void startAnimation() {
-		// false±íÊ¾Ã¿ÖÖ¶¯»­²ÉÓÃ¸÷×ÔµÄ¶¯»­²åÈëÆ÷£¨Êı×Öº¯Êı£©
+		// false ä»£è¡¨åŠ¨ç”»é›†ä¸­æ¯ç§åŠ¨ç”»éƒ½é‡‡ç”¨å„è‡ªçš„åŠ¨ç”»æ’å…¥å™¨(æ•°å­¦å‡½æ•°)
 		as = new AnimationSet(false);
 
-		// Ğı×ª¶¯»­£¬Ãªµã
+		// æ—‹è½¬åŠ¨ç”»,é”šç‚¹
 		RotateAnimation ra = new RotateAnimation(0, 360,
 				Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
-				0.5f);// ÉèÖÃ¶¯»­ÃªµãÎªÍ¼Æ¬µÄÖĞĞÄ
-		// ÉèÖÃ¶¯»­µÄ²¥·ÅÊ±¼ä
+				0.5f);// è®¾ç½®é”šç‚¹ä¸ºå›¾ç‰‡çš„ä¸­å¿ƒç‚¹
+		// è®¾ç½®åŠ¨ç”»æ’­æ”¾æ—¶é—´
 		ra.setDuration(2000);
-		ra.setFillAfter(true);// ¶¯»­²¥·ÅÍê£¬Í£ÁôÔÚµ±Ç°×´Ì¬
-		// Ìí¼Óµ½¶¯»­¼¯
+		ra.setFillAfter(true);// åŠ¨ç”»æ’­æ”¾å®Œä¹‹åï¼Œåœç•™åœ¨å½“å‰çŠ¶æ€
+
+		// æ·»åŠ åˆ°åŠ¨ç”»é›†
 		as.addAnimation(ra);
 
-		// ½¥±ä¶¯»­
-		AlphaAnimation aa = new AlphaAnimation(0, 1);// ÓÖ3ÍêÈ«Í¸Ã÷±äÎªÍêÈ«²»Í¸Ã÷
-		// ÉèÖÃ²¥·ÅÊ±¼ä
+		// æ¸å˜åŠ¨ç”»
+		AlphaAnimation aa = new AlphaAnimation(0, 1);// ç”±å®Œå…¨é€æ˜åˆ°ä¸é€æ˜
+		// è®¾ç½®åŠ¨ç”»æ’­æ”¾æ—¶é—´
 		aa.setDuration(2000);
-		// ¶¯»­²¥·ÅÍê³Éºó£¬Í£ÁôÔÚµ±Ç°×´Ì¬
-		aa.setFillAfter(true);
-		// Ìí¼Óµ½¶¯»­¼¯
+		aa.setFillAfter(true);// åŠ¨ç”»æ’­æ”¾å®Œä¹‹åï¼Œåœç•™åœ¨å½“å‰çŠ¶æ€
+
+		// æ·»åŠ åˆ°åŠ¨ç”»é›†
 		as.addAnimation(aa);
 
-		// Ëõ·Å¶¯»­
+		// ç¼©æ”¾åŠ¨ç”»
+
 		ScaleAnimation sa = new ScaleAnimation(0, 1, 0, 1,
 				Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
 				0.5f);
-		// ÉèÖÃ¶¯»­²¥·ÅÊ±¼ä
+		// è®¾ç½®åŠ¨ç”»æ’­æ”¾æ—¶é—´
 		sa.setDuration(2000);
-		sa.setFillAfter(true);
-		// Ìí¼Óµ½¶¯»­¼¯
+		sa.setFillAfter(true);// åŠ¨ç”»æ’­æ”¾å®Œä¹‹åï¼Œåœç•™åœ¨å½“å‰çŠ¶æ€
+
+		// æ·»åŠ åˆ°åŠ¨ç”»é›†
 		as.addAnimation(sa);
 
-		// ²¥·Å¶¯»­ ½«¶¯»­as¼¯¸øĞèÒªÓĞ¶¯»­Ğ§¹ûµÄ¶ÔÏó
+		// æ’­æ”¾åŠ¨ç”»
 		iv_mainview.startAnimation(as);
 
-		// ¶¯»­²¥·ÅÍê³É ½øÈëÏÂÒ»¸ö½çÃæ£¨Ïòµ¼½çÃæ»òÕß Ö÷½çÃæ£©
+		// åŠ¨ç”»æ’­å®Œè¿›å…¥ä¸‹ä¸€ä¸ªç•Œé¢ å‘å¯¼ç•Œé¢å’Œä¸»ç•Œé¢
 
-		// 1.¼àÌı¶¯»­²¥·ÅÍê³ÉµÄÊÂ¼ş
-
-		// 2.ÅĞ¶ÏÊÇ½øÈëÖ÷½çÃæ »¹ÊÇÏòµ¼½çÃæ
+		
 
 	}
 
 	private void initView() {
-		// ÉèÖÃÖ÷½çÃæ
+		// è®¾ç½®ä¸»ç•Œé¢
 		setContentView(R.layout.activity_splash);
+
+		// è·å–èƒŒæ™¯å›¾ç‰‡
 		iv_mainview = (ImageView) findViewById(R.id.iv_splash_mainview);
 
 	}
-
 }

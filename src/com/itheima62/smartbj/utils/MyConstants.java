@@ -1,14 +1,15 @@
 package com.itheima62.smartbj.utils;
 /**
- * @author ltf
- * @´´½¨Ê±¼ä2016-5-16ÏÂÎç2:49:52
- * @¹¤³ÌÃûSmartBJ
- * @ÃèÊö    ÉùÃ÷³£Á¿
- * @gitÌá½»Õß£º$Auther$
- * @Ìá½»Ê±¼ä£º${date}${time}
- * @µ±Ç°°æ±¾£º$Rev$
+ * @author Administrator
+ * @åˆ›å»ºæ—¶é—´ 2015-7-4 ä¸Šåˆ10:42:26
+ * @æè¿° TODO
+ *
+ * @ svnæäº¤è€…ï¼š$Author: gd $
+ * @ æäº¤æ—¶é—´: $Date: 2015-07-04 10:51:01 +0800 (Sat, 04 Jul 2015) $
+ * @ å½“å‰ç‰ˆæœ¬: $Rev: 5 $
  */
-public interface MyConstants {
-	String CONFIGFILE="cachevalue";//spµÄÎÄ¼şÃû
-	String ISSETUP = "issetup";//ÊÇ·ñÉèÖÃÏòµ¼½çÃæÉèÖÃ¹ıÊı¾İ
+public interface MyConstants
+{
+	String CONFIGFILE = "cachevalue";//spçš„æ–‡ä»¶å
+	String ISSETUP = "issetup";//æ˜¯å¦è®¾ç½®å‘å¯¼ç•Œé¢è®¾ç½®è¿‡æ•°æ®
 }

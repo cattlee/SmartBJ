@@ -1,88 +1,78 @@
+
+
 package com.itheima62.smartbj.activity;
 
+import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.view.Window;
+
 import com.itheima62.smartbj.R;
-import com.itheima62.smartbj.view.Leftmenufragment;
-import com.itheima62.smartbj.view.MainContentFragment;
+import com.itheima62.smartbj.view.LeftMenuFragment;
 import com.itheima62.smartbj.view.MainContentFragment;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
-import android.app.Activity;
-import android.app.FragmentTransaction;
-import android.nfc.Tag;
-import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.view.Window;
-
 /**
- * @author ltf
- * @´´½¨Ê±¼ä2016-5-17ÏÂÎç6:31:53
- * @¹¤³ÌÃûSmartBJ
- * @ÃèÊöTODO
- * @gitÌá½»Õß£º$Auther$
- * @Ìá½»Ê±¼ä£º${date}${time}
- * @µ±Ç°°æ±¾£º$Rev$
+ * @author Administrator
+ * @åˆ›å»ºæ—¶é—´ 2015-7-4 ä¸‹åˆ2:12:43
+ * @æè¿° æ™ºæ…§åŒ—äº¬çš„ä¸»ç•Œé¢
+ * 
+ *     @ svnæäº¤è€…ï¼š$Author: gd $ @ æäº¤æ—¶é—´: $Date: 2015-07-04 15:55:43 +0800 (Sat, 04
+ *     Jul 2015) $ @ å½“å‰ç‰ˆæœ¬: $Rev: 15 $
  */
-public class MainActivity extends SlidingFragmentActivity {
-	
-	
-	private static final String LEFT_MUNE_TAG = "LEFT_MUNE_TAG";
-	private static final String MAIN_MUNE_TAG = "MAIN_MUNE_TAG";
-
+public class MainActivity extends SlidingFragmentActivity
+{
+	private static final String	LEFT_MUNE_TAG	= "LEFT_MUNE_TAG";
+	private static final String	MAIN_MUNE_TAG	= "MAIN_MUNE_TAG";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		
-		//ÉèÖÃ½çÃæÎŞ±êÌâ
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		
+		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		initView();//³õÊ¼»¯½çÃæ
-		initData();//³õÊ¼»¯Êı¾İ
+		requestWindowFeature(Window.FEATURE_NO_TITLE);// éšè—æ ‡é¢˜
+		initView();// åˆå§‹åŒ–ç•Œé¢
+		initData();// åˆå§‹åŒ–æ•°æ®
 		
 	}
-	
-	
+
 	/**
-	 * ³õÊ¼»¯Êı¾İ
+	 * åˆå§‹åŒ–æ•°æ®
 	 */
 	private void initData() {
-		//»ñµÃfragment¹ÜÀíÆ÷
-		FragmentManager fragmentManager=getSupportFragmentManager();
-		//¸ü»»fragmentÊÂÎï²½Öè 1.»ñÈ¡ÊÂÎï
-	    android.support.v4.app.FragmentTransaction transaction =fragmentManager.beginTransaction();
-	
-		//2.Íê³É×ó²à²Ëµ¥Ìæ»»
-	    transaction.replace(R.id.fl_left_menu, new Leftmenufragment(), LEFT_MUNE_TAG);
-	    
-	    transaction.replace(R.id.fl_main_menu, new MainContentFragment(),MAIN_MUNE_TAG);
-	    
-		//3.Ìá½»ÊÂÎï
-	    transaction.commit();
-	}
+		FragmentManager fragmentManager = getSupportFragmentManager();
+		// 1. è·å–äº‹ç‰©
+		FragmentTransaction transaction = fragmentManager.beginTransaction();
+		// 2. å®Œæˆæ›¿æ¢
 
+		// å®Œæˆå·¦ä¾§èœå•ç•Œé¢çš„æ›¿æ¢
+		transaction.replace(R.id.fl_left_menu, new LeftMenuFragment(),
+				LEFT_MUNE_TAG);
+
+		// å®Œæˆå·¦ä¾§èœå•ç•Œé¢çš„æ›¿æ¢
+		transaction.replace(R.id.fl_main_menu, new MainContentFragment(),
+				MAIN_MUNE_TAG);
+
+		// 3.æäº¤äº‹ç‰©
+		transaction.commit();
+	}
 
 	private void initView() {
-		//ÉèÖÃÖ÷½çÃæ
+		// è®¾ç½®ä¸»ç•Œé¢
 		setContentView(R.layout.fragment_content_tag);
-		//ÉèÖÃ×ó²à²Ëµ¥½çÃæ
+
+		// è®¾ç½®å·¦ä¾§èœå•ç•Œé¢
 		setBehindContentView(R.layout.fragment_left);
-		//ÉèÖÃ»¬¶¯Ä£Ê½
-		SlidingMenu sm=getSlidingMenu();
-		sm.setMode(SlidingMenu.LEFT);//ÉèÖÃ×ó²à»¬¶¯
-		//ÉèÖÃ»¬¶¯Î»ÖÃ  ¿ÉÒÔÈ«ÆÁ»¬¶¯
+
+		// è®¾ç½®æ»‘åŠ¨æ¨¡å¼
+		SlidingMenu sm = getSlidingMenu();
+		sm.setMode(SlidingMenu.LEFT);// åªè®¾ç½®å·¦ä¾§å¯ä»¥æ»‘åŠ¨
+
+		// è®¾ç½®æ»‘åŠ¨ä½ç½®ä¸ºå…¨å±
 		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-		//ÉèÖÃ×ó²à»¬¶¯¹»Ê£Óà¾àÀë
-        sm.setBehindOffset(200);//Ö÷ÆÁÄ»×Ü¹²³¤320  Ê£Óà70ÓÃÓÚÏÔÊ¾×ó²à²Ëµ¥
-	}
 
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		// è®¾ç½®ä¸»ç•Œé¢å·¦ä¾§æ»‘åŠ¨åå‰©ä½™çš„ç©ºé—´ä½ç½®
+		sm.setBehindOffset(200);// è®¾ç½®ä¸»ç•Œé¢å‰©ä½™çš„ä½ç½®
 
 	}
-
 }

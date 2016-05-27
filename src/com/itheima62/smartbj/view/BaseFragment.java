@@ -3,64 +3,67 @@ package com.itheima62.smartbj.view;
 import com.itheima62.smartbj.activity.MainActivity;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * @author ltf
- * @´´½¨Ê±¼ä2016-5-24ÏÂÎç4:50:14
- * @¹¤³ÌÃûSmartBJ
- * @ÃèÊöTODO
- * @gitÌá½»Õß£º$Auther$
- * @Ìá½»Ê±¼ä£º${date ${time}
- * @µ±Ç°°æ±¾£º$Rev$
+ * @author Administrator
+ * @åˆ›å»ºæ—¶é—´ 2015-7-4 ä¸‹åˆ4:07:00
+ * @æè¿° TODO
+ *
+ * @ svnæäº¤è€…ï¼š$Author: gd $
+ * @ æäº¤æ—¶é—´: $Date: 2015-07-04 16:27:53 +0800 (Sat, 04 Jul 2015) $
+ * @ å½“å‰ç‰ˆæœ¬: $Rev: 14 $
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment
+{
 
-	protected MainActivity mainActivity;// ÉÏÏÂÎÄ
-
+	protected MainActivity mainActivity;//ä¸Šä¸‹æ–‡
+	
+	// XXXDao dao = new XXXDao(getActivity);
 	@Override
-	public void onCreate(@Nullable Bundle savedInstanceState) {
-
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		mainActivity = (MainActivity) getActivity();// »ñÈ¡fragmentËùÔÚµÄActivity
+		mainActivity = (MainActivity) getActivity();//è·å–fragmentæ‰€åœ¨Activity;
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-
-		View root = initView();//view
+		View root = initView(); //View
 		return root;
 	}
-
+	
 	/**
-	 * ±ØĞë¸²¸Ç´Ë·½·¨ Íê³É½çÃæµÄÏÔÊ¾
+	 * å¿…é¡»è¦†ç›–æ­¤æ–¹æ³•æ¥å®Œå…¨ç•Œé¢çš„æ˜¾ç¤º
 	 * @return
 	 */
 	public abstract View initView();
 	
-	@Override
-	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-		// ³õÊ¼»¯ÊÂ¼şºÍÊı¾İ
-		super.onActivityCreated(savedInstanceState);
-		initData();//³õÊ¼»¯Êı¾İ
-		initEvent();//³õÊ¼»¯ÊÂ¼ş
-	}
+
 	/**
-	 * ×ÓÀà¸²¸Ç´Ë·½·¨Íê³ÉÊı¾İµÄ³õÊ¼»¯¡£
+	 * å­ç±»è¦†ç›–æ­¤æ–¹æ³•æ¥å®Œæˆæ•°æ®çš„åˆå§‹åŒ–
 	 */
 	public void initData(){
 		
-	};
+	}
+	
 	/**
-	 * ×ÓÀà¸²¸Ç´Ë·½·¨Íê³ÉÊÂ¼şµÄÌí¼Ó
+	 * å­ç±»è¦†ç›–æ­¤æ–¹æ³•æ¥å®Œæˆäº‹ä»¶çš„æ·»åŠ 
 	 */
 	public void initEvent(){
 		
-	};
+	}
 
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		//åˆå§‹åŒ–äº‹ä»¶å’Œæ•°æ®
+		super.onActivityCreated(savedInstanceState);
+		initData();//åˆå§‹åŒ–æ•°æ®
+		initEvent();//åˆå§‹åŒ–äº‹ä»¶
+	}
+	
 }

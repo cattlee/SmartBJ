@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
@@ -30,11 +29,11 @@ import com.itheima62.smartbj.utils.SpTools;
 
 /**
  * @author Administrator
- * @´´½¨Ê±¼ä 2015-7-4 ÉÏÎç11:05:45
- * @ÃèÊö ÉèÖÃÏòµ¼½çÃæ £¬²ÉÓÃViewpager½çÃæµÄÇĞ»»
+ * @åˆ›å»ºæ—¶é—´ 2015-7-4 ä¸Šåˆ11:05:45
+ * @æè¿° è®¾ç½®å‘å¯¼ç•Œé¢ ï¼Œé‡‡ç”¨Viewpagerç•Œé¢çš„åˆ‡æ¢
  * 
- *     @ svnÌá½»Õß£º$Author: gd $ @ Ìá½»Ê±¼ä: $Date: 2015-07-04 11:45:43 +0800 (Sat, 04
- *     Jul 2015) $ @ µ±Ç°°æ±¾: $Rev: 9 $
+ *     @ svnæäº¤è€…ï¼š$Author: gd $ @ æäº¤æ—¶é—´: $Date: 2015-07-04 11:45:43 +0800 (Sat, 04
+ *     Jul 2015) $ @ å½“å‰ç‰ˆæœ¬: $Rev: 9 $
  */
 public class GuideActivity extends Activity
 {
@@ -44,87 +43,87 @@ public class GuideActivity extends Activity
 	private Button			bt_startExp;
 	private List<ImageView>	guids;
 	private MyAdapter		adapter;
-	private int	disPoints;//µãÓëµãÖ®¼äµÄ¾àÀë
+	private int	disPoints;//ç‚¹ä¸ç‚¹ä¹‹é—´çš„è·ç¦»
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);// È¥µô±êÌâ
-		initView();// ³õÊ¼»¯½çÃæ
+		requestWindowFeature(Window.FEATURE_NO_TITLE);// å»æ‰æ ‡é¢˜
+		initView();// åˆå§‹åŒ–ç•Œé¢
 
-		initData();// ³õÊ¼»¯Êı¾İ
+		initData();// åˆå§‹åŒ–æ•°æ®
 
-		initEvent();// ³õÊ¼»¯×é¼şÊÂ¼ş
+		initEvent();// åˆå§‹åŒ–ç»„ä»¶äº‹ä»¶
 	}
 
 	private void initEvent() {
-		//¼àÌı²¼¾ÖÍê³É £¬´¥·¢µÄ½á¹û
+		//ç›‘å¬å¸ƒå±€å®Œæˆ ï¼Œè§¦å‘çš„ç»“æœ
 		v_redpoint.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
 					
 					
 
 					@Override
 					public void onGlobalLayout() {
-						//È¡Ïû×¢²á ½çÃæ±ä»¯¶ø·¢ÉúµÄ»Øµ÷½á¹û
+						//å–æ¶ˆæ³¨å†Œ ç•Œé¢å˜åŒ–è€Œå‘ç”Ÿçš„å›è°ƒç»“æœ
 						v_redpoint.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-						//¼ÆËãµãÓëµãÖ®¼äµÄ¾àÀë
+						//è®¡ç®—ç‚¹ä¸ç‚¹ä¹‹é—´çš„è·ç¦»
 						disPoints = (ll_points.getChildAt(1).getLeft() - ll_points.getChildAt(0)
 								.getLeft());
 					}
 				});
 		
-		//¸ø°´Å¥Ìí¼Óµã»÷ÊÂ¼ş
+		//ç»™æŒ‰é’®æ·»åŠ ç‚¹å‡»äº‹ä»¶
 		bt_startExp.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				//±£´æÉèÖÃµÄ×´Ì¬
-				SpTools.setBoolean(getApplicationContext(), MyConstants.ISSETUP, true);//±£´æÉèÖÃÍê³ÉµÄ×´Ì¬
-				//½øÈëÖ÷½çÃæ
+				//ä¿å­˜è®¾ç½®çš„çŠ¶æ€
+				SpTools.setBoolean(getApplicationContext(), MyConstants.ISSETUP, true);//ä¿å­˜è®¾ç½®å®Œæˆçš„çŠ¶æ€
+				//è¿›å…¥ä¸»ç•Œé¢
 				Intent main = new Intent(GuideActivity.this,MainActivity.class);
-				startActivity(main);//Æô¶¯Ö÷½çÃæ
-				//¹Ø±Õ×Ô¼º
+				startActivity(main);//å¯åŠ¨ä¸»ç•Œé¢
+				//å…³é—­è‡ªå·±
 				finish();
 			}
 		});
 		
-		//¸øViewPageÌí¼ÓÒ³Âë¸Ä±äµÄÊÂ¼ş
+		//ç»™ViewPageæ·»åŠ é¡µç æ”¹å˜çš„äº‹ä»¶
 		vp_guids.setOnPageChangeListener(new OnPageChangeListener() {
 			
 			
 			@Override
 			public void onPageSelected(int position) {
-				//µ±Ç°ViewPagerÏÔÊ¾µÄÒ³Âë
-				//Èç¹ûViewPager»¬¶¯µ½µÚÈı¸öÒ³Âë(×îºóÒ»Ò³)£¬ÏÔÊ¾button
+				//å½“å‰ViewPageræ˜¾ç¤ºçš„é¡µç 
+				//å¦‚æœViewPageræ»‘åŠ¨åˆ°ç¬¬ä¸‰ä¸ªé¡µç (æœ€åä¸€é¡µ)ï¼Œæ˜¾ç¤ºbutton
 				if (position == guids.size() - 1) {
-					bt_startExp.setVisibility(View.VISIBLE);//ÉèÖÃÉèÖÃ°´Å¥µÄÏÔÊ¾
+					bt_startExp.setVisibility(View.VISIBLE);//è®¾ç½®è®¾ç½®æŒ‰é’®çš„æ˜¾ç¤º
 				} else {
-					//²»ÊÇ×îºóÒ»Ò³£¬Òş²Ø¸Ãbutton°´Å¥
+					//ä¸æ˜¯æœ€åä¸€é¡µï¼Œéšè—è¯¥buttonæŒ‰é’®
 					bt_startExp.setVisibility(View.GONE);
 				}
 			}
 			
 			/* (non-Javadoc)
 			 * @see android.support.v4.view.ViewPager.OnPageChangeListener#onPageScrolled(int, float, int)
-			 * ÔÚÒ³Ãæ»¬¶¯¹ı³Ì´¥·¢µÄÊÂ¼ş
-			 * @param position µ±Ç°ViewPageÍ£ÁôµÄÎ»ÖÃ
-			 * @param positionOffset Æ«ÒÆµÄ±ÈÀıÖµ
-			 * @param positionOffsetPixels Æ«ÒÆµÄÏñËØ
+			 * åœ¨é¡µé¢æ»‘åŠ¨è¿‡ç¨‹è§¦å‘çš„äº‹ä»¶
+			 * @param position å½“å‰ViewPageåœç•™çš„ä½ç½®
+			 * @param positionOffset åç§»çš„æ¯”ä¾‹å€¼
+			 * @param positionOffsetPixels åç§»çš„åƒç´ 
 			 */
 			@Override
 			public void onPageScrolled(int position, float positionOffset,
 					int positionOffsetPixels) {
 				
-				//positionOffset ÒÆ¶¯µÄ±ÈÀıÖµ
-				//¼ÆËãºìµãµÄ×ó±ß¾à
+				//positionOffset ç§»åŠ¨çš„æ¯”ä¾‹å€¼
+				//è®¡ç®—çº¢ç‚¹çš„å·¦è¾¹è·
 				float leftMargin = disPoints * (position + positionOffset);
 				
-				//ÉèÖÃºìµãµÄ×ó±ß¾à
+				//è®¾ç½®çº¢ç‚¹çš„å·¦è¾¹è·
 				RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) v_redpoint.getLayoutParams();
-				layoutParams.leftMargin = Math.round(leftMargin);//¶ÔfloatÀàĞÍËÄÉáÎåÈë
+				layoutParams.leftMargin = Math.round(leftMargin);//å¯¹floatç±»å‹å››èˆäº”å…¥
 				
-				//ÖØĞÂÉèÖÃ²¼¾Ö
+				//é‡æ–°è®¾ç½®å¸ƒå±€
 				v_redpoint.setLayoutParams(layoutParams);
 			}
 			
@@ -137,47 +136,46 @@ public class GuideActivity extends Activity
 
 	private void initData() {
 		// viewpaper adapter list
-		// Í¼Æ¬µÄÊı¾İ
+		// å›¾ç‰‡çš„æ•°æ®
 		int[] pics = new int[] { R.drawable.guide_1, R.drawable.guide_2,
 				R.drawable.guide_3 };
 
-		// ¶¨ÒåViewpagerÊ¹ÓÃµÄÈİÆ÷
+		// å®šä¹‰Viewpagerä½¿ç”¨çš„å®¹å™¨
 
 		guids = new ArrayList<ImageView>();
 
-		// ³õÊ¼»¯ÈİÆ÷ÖĞµÄÊı¾İ
+		// åˆå§‹åŒ–å®¹å™¨ä¸­çš„æ•°æ®
 		for (int i = 0; i < pics.length; i++) {
 			ImageView iv_temp = new ImageView(getApplicationContext());
 			iv_temp.setBackgroundResource(pics[i]);
 
-			// Ìí¼Ó½çÃæµÄÊı¾İ
+			// æ·»åŠ ç•Œé¢çš„æ•°æ®
 			guids.add(iv_temp);
 
-			// ¸øµãµÄÈİÆ÷Linearlayout³õÊ¼»¯Ìí¼Ó»ÒÉ«µã
+			// ç»™ç‚¹çš„å®¹å™¨Linearlayoutåˆå§‹åŒ–æ·»åŠ ç°è‰²ç‚¹
 			View v_point = new View(getApplicationContext());
 			v_point.setBackgroundResource(R.drawable.gray_point);
-			
-			int dip =10;
-			// ÉèÖÃ»ÒÉ«µãµÄ´óĞ¡  µ¥Î»px
-			LayoutParams params=new LayoutParams(DensityUtil.dip2px(getApplicationContext(),dip),DensityUtil.dip2px(getApplicationContext(),dip));//µ¥Î»px  ÎªÉè±¸ÏñËØ
+			int dip = 10;
+			// è®¾ç½®ç°è‰²ç‚¹çš„å¤§å°
+			LayoutParams params = new LayoutParams(DensityUtil.dip2px(getApplicationContext(), dip), DensityUtil.dip2px(getApplicationContext(), dip));// æ³¨æ„å•ä½æ˜¯px ä¸æ˜¯dp
 
-			// ÉèÖÃµãÓëµãÖ±½ÓµÄ¿ÕÏ¶
-			// µÚÒ»¸öµã²»ĞèÒªÖ¸¶¨
-			if (i != 0)// ¹ıÂËµÚÒ»¸öµã
-				params.leftMargin = 10;// dip
-			v_point.setLayoutParams(params);// ÎŞ·ìÏ¶µÄ°¤Ò»Æğ
+			// è®¾ç½®ç‚¹ä¸ç‚¹ç›´æ¥çš„ç©ºéš™
+			// ç¬¬ä¸€ä¸ªç‚¹ä¸éœ€è¦æŒ‡å®š
+			if (i != 0)// è¿‡æ»¤ç¬¬ä¸€ä¸ªç‚¹
+				params.leftMargin = 10;// px
+			v_point.setLayoutParams(params);// æ— ç¼éš™çš„æŒ¨ä¸€èµ·
 
-			// Ìí¼Ó»ÒÉ«µÄµãµ½ÏßĞÔ²¼¾ÖÖĞ
+			// æ·»åŠ ç°è‰²çš„ç‚¹åˆ°çº¿æ€§å¸ƒå±€ä¸­
 			ll_points.addView(v_point);
 		}
 
-		// ½çÃæÃ»ÓĞ²¼¾ÖÇ°£¬µãµÄÎ»ÖÃÊÇÈ·¶¨²»ÁËµÄ£¬²¼¾ÖÍê³É£¬ÔÙÇó³öµãÖ±½ÓµÄ¾àÀë
+		// ç•Œé¢æ²¡æœ‰å¸ƒå±€å‰ï¼Œç‚¹çš„ä½ç½®æ˜¯ç¡®å®šä¸äº†çš„ï¼Œå¸ƒå±€å®Œæˆï¼Œå†æ±‚å‡ºç‚¹ç›´æ¥çš„è·ç¦»
 
 		
-		// ´´½¨ViewPagerµÄÊÊÅäÆ÷
+		// åˆ›å»ºViewPagerçš„é€‚é…å™¨
 		adapter = new MyAdapter();
 
-		// ÉèÖÃÊÊÅäÆ÷
+		// è®¾ç½®é€‚é…å™¨
 		vp_guids.setAdapter(adapter);
 
 	}
@@ -188,26 +186,26 @@ public class GuideActivity extends Activity
 		@Override
 		public int getCount() {
 
-			return guids.size();// ·µ»ØÊı¾İµÄ¸öÊı
+			return guids.size();// è¿”å›æ•°æ®çš„ä¸ªæ•°
 		}
 
 		@Override
 		public boolean isViewFromObject(View arg0, Object arg1) {
-			return arg0 == arg1;// ¹ıÂËºÍ»º´æµÄ×÷ÓÃ
+			return arg0 == arg1;// è¿‡æ»¤å’Œç¼“å­˜çš„ä½œç”¨
 		}
 
 		@Override
 		public void destroyItem(ViewGroup container, int position, Object object) {
 
-			container.removeView((View) object);// ´ÓViewpagerÖĞÒÆ³ı
+			container.removeView((View) object);// ä»Viewpagerä¸­ç§»é™¤
 		}
 
 		@Override
 		public Object instantiateItem(ViewGroup container, int position) {
 			// container viewpaper
-			// »ñÈ¡View
+			// è·å–View
 			View child = guids.get(position);
-			// Ìí¼ÓView
+			// æ·»åŠ View
 			container.addView(child);//
 
 			return child;
@@ -218,16 +216,16 @@ public class GuideActivity extends Activity
 	private void initView() {
 		setContentView(R.layout.activity_guide);
 
-		// ViewPage×é¼ş
+		// ViewPageç»„ä»¶
 		vp_guids = (ViewPager) findViewById(R.id.vp_guide_pages);
 
-		// ¶¯Ì¬¼ÓµãÈİÆ÷
+		// åŠ¨æ€åŠ ç‚¹å®¹å™¨
 		ll_points = (LinearLayout) findViewById(R.id.ll_guide_points);
 
-		// ºìµã
+		// çº¢ç‚¹
 		v_redpoint = findViewById(R.id.v_guide_redpoint);
 
-		// ¿ªÊ¼ÌåÑéµÄ°´Å¥
+		// å¼€å§‹ä½“éªŒçš„æŒ‰é’®
 		bt_startExp = (Button) findViewById(R.id.bt_guide_startexp);
 	}
 }

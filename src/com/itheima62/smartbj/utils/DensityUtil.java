@@ -1,20 +1,20 @@
 package com.itheima62.smartbj.utils;
 
-import android.R.integer;
 import android.content.Context;
 
 /**
- * @author ltf
- * @´´½¨Ê±¼ä2016-5-18ÏÂÎç4:19:08
- * @¹¤³ÌÃûSmartBJ
- * @ÃèÊöTODO
- * @gitÌá½»Õß£º$Auther$
- * @Ìá½»Ê±¼ä£º${date}${time}
- * @µ±Ç°°æ±¾£º$Rev$
+ * @author Administrator
+ * @åˆ›å»ºæ—¶é—´ 2015-7-4 ä¸‹åˆ2:55:47
+ * @æè¿° TODO
+ *
+ * @ svnæäº¤è€…ï¼š$Author: gd $
+ * @ æäº¤æ—¶é—´: $Date: 2015-07-04 14:57:46 +0800 (Sat, 04 Jul 2015) $
+ * @ å½“å‰ç‰ˆæœ¬: $Rev: 9 $
  */
-public class DensityUtil {
+public class DensityUtil
+{
 	 /** 
-     * ¸ù¾İÊÖ»úµÄ·Ö±æÂÊ´Ó dip µÄµ¥Î» ×ª³ÉÎª px(ÏñËØ) 
+     * æ ¹æ®æ‰‹æœºçš„åˆ†è¾¨ç‡ä» dip çš„å•ä½ è½¬æˆä¸º px(åƒç´ ) 
      */  
     public static int dip2px(Context context, float dpValue) {  
         final float scale = context.getResources().getDisplayMetrics().density;  
@@ -22,7 +22,7 @@ public class DensityUtil {
     }  
   
     /** 
-     * ¸ù¾İÊÖ»úµÄ·Ö±æÂÊ´Ó px(ÏñËØ) µÄµ¥Î» ×ª³ÉÎª dp 
+     * æ ¹æ®æ‰‹æœºçš„åˆ†è¾¨ç‡ä» px(åƒç´ ) çš„å•ä½ è½¬æˆä¸º dp 
      */  
     public static int px2dip(Context context, float pxValue) {  
         final float scale = context.getResources().getDisplayMetrics().density;  

@@ -1,3 +1,5 @@
+
+
 package com.itheima62.smartbj.view;
 
 import java.util.ArrayList;
@@ -21,21 +23,20 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
 /**
- * @author ltf
- * @创建时间2016-5-24下午8:34:10
- * @工程名SmartBJ
- * @描述  主界面的fragment
- * @git提交者：$Auther$
- * @提交时间：${date}${time}
- * @当前版本：$Rev$
+ * @author Administrator
+ * @鍒涘缓鏃堕棿 2015-7-4 涓嬪崍4:17:20
+ * @鎻忚堪 涓荤晫闈㈢殑fragment
+ * 
+ *     @ svn鎻愪氦鑰咃細$Author: gd $ @ 鎻愪氦鏃堕棿: $Date: 2015-07-04 17:09:14 +0800 (Sat, 04
+ *     Jul 2015) $ @ 褰撳墠鐗堟湰: $Rev: 18 $
  */
 public class MainContentFragment extends BaseFragment
 {
 
-	//@ViewInject(R.id.vp_main_content_pages)
+	@ViewInject(R.id.vp_main_content_pages)
 	private ViewPager			viewPager;
 
-	//@ViewInject(R.id.rg_content_radios)
+	@ViewInject(R.id.rg_content_radios)
 	private RadioGroup			rg_radios;
 
 	private List<BaseTagPage>	pages	= new ArrayList<BaseTagPage>();
@@ -45,7 +46,7 @@ public class MainContentFragment extends BaseFragment
 		View root = View.inflate(mainActivity, R.layout.fragment_content_view,
 				null);
 
-		// xutils 动态注入view
+		// xutils 鍔ㄦ�佹敞鍏iew
 
 		ViewUtils.inject(this, root);
 		return root;
@@ -53,15 +54,15 @@ public class MainContentFragment extends BaseFragment
 
 	@Override
 	public void initData() {
-		// 首页
+		// 棣栭〉
 		pages.add(new HomeBaseTagPager(mainActivity));
-		// 首页
+		// 棣栭〉
 		pages.add(new NewCenterBaseTagPager(mainActivity));
-		// 首页
+		// 棣栭〉
 		pages.add(new SmartServiceBaseTagPager(mainActivity));
-		// 首页
+		// 棣栭〉
 		pages.add(new GovAffairsBaseTagPager(mainActivity));
-		// 首页
+		// 棣栭〉
 		pages.add(new SettingCenterBaseTagPager(mainActivity));
 		
 		MyAdapter adapter = new MyAdapter();
@@ -101,4 +102,3 @@ public class MainContentFragment extends BaseFragment
 	}
 
 }
-
