@@ -1,5 +1,7 @@
 package com.itheima62.smartbj.basepage;
 
+import com.itheima62.smartbj.activity.MainActivity;
+
 import android.content.Context;
 import android.view.Gravity;
 import android.widget.TextView;
@@ -16,17 +18,20 @@ import android.widget.TextView;
 public class SmartServiceBaseTagPager extends BaseTagPage
 {
 
-	public SmartServiceBaseTagPager(Context context) {
+	public SmartServiceBaseTagPager(MainActivity context) {
 		super(context);
 	}
 	@Override
 	public void initData() {
+		//设置当前page标题头
 		tv_title.setText("智慧服务");
-		
-		TextView tv = new TextView(context);
+		//当前page的内容
+		TextView tv = new TextView(mainActivity);
 		tv.setText("智慧服务的内容");
 		tv.setTextSize(25);
 		tv.setGravity(Gravity.CENTER);
+		//替换掉白纸的内容
+		fl_content.addView(tv);
 		super.initData();
 	}
 

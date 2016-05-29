@@ -1,5 +1,7 @@
 package com.itheima62.smartbj.basepage;
 
+import com.itheima62.smartbj.activity.MainActivity;
+
 import android.content.Context;
 import android.view.Gravity;
 import android.widget.TextView;
@@ -16,17 +18,20 @@ import android.widget.TextView;
 public class GovAffairsBaseTagPager extends BaseTagPage
 {
 
-	public GovAffairsBaseTagPager(Context context) {
+	public GovAffairsBaseTagPager(MainActivity context) {
 		super(context);
 	}
 	@Override
 	public void initData() {
+		//设置本PAge的标题
 		tv_title.setText("政务");
-		
-		TextView tv = new TextView(context);
+		//要显示的内容  替换掉 白纸
+		TextView tv = new TextView(mainActivity);
 		tv.setText("政务的内容");
 		tv.setTextSize(25);
 		tv.setGravity(Gravity.CENTER);
+		//替换掉白纸
+		fl_content.addView(tv);//添加自己的内容到白纸上
 		super.initData();
 	}
 
