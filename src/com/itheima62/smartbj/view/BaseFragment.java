@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 /**
  * @author Administrator
  * @创建时间 2015-7-4 下午4:07:00
- * @描述 fragment的基类
+ * @描述 TODO
  *
  * @ svn提交者：$Author: gd $
  * @ 提交时间: $Date: 2015-07-04 16:27:53 +0800 (Sat, 04 Jul 2015) $

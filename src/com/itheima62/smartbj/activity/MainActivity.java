@@ -3,6 +3,7 @@
 package com.itheima62.smartbj.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Window;
@@ -19,7 +20,7 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
  * @描述 智慧北京的主界面
  * 
  *     @ svn提交者：$Author: gd $ @ 提交时间: $Date: 2015-07-04 15:55:43 +0800 (Sat, 04
- *     Jul 2015) $ @ 当前版本: $Rev: 15 $
+ *     Jul 2015) $ @ 当前版本: $Rev: 26 $
  */
 public class MainActivity extends SlidingFragmentActivity
 {
@@ -34,6 +35,26 @@ public class MainActivity extends SlidingFragmentActivity
 		initView();// 初始化界面
 		initData();// 初始化数据
 		
+	}
+	
+	/**
+	 * @return
+	 *    返回左侧菜单的fragment
+	 */
+	public LeftMenuFragment getLeftMenuFragment(){
+		FragmentManager fragmentManager = getSupportFragmentManager();
+		LeftMenuFragment leftFragment = (LeftMenuFragment) fragmentManager.findFragmentByTag(LEFT_MUNE_TAG);
+		return leftFragment;
+	}
+	
+	/**
+	 * @return
+	 *    返回左侧菜单的fragment
+	 */
+	public MainContentFragment getMainMenuFragment(){
+		FragmentManager fragmentManager = getSupportFragmentManager();
+		MainContentFragment leftFragment = (MainContentFragment) fragmentManager.findFragmentByTag(MAIN_MUNE_TAG);
+		return leftFragment;
 	}
 
 	/**

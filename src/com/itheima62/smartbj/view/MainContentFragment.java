@@ -1,9 +1,10 @@
+
+
 package com.itheima62.smartbj.view;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import android.net.VpnService;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -19,7 +20,6 @@ import com.itheima62.smartbj.basepage.NewCenterBaseTagPager;
 import com.itheima62.smartbj.basepage.SettingCenterBaseTagPager;
 import com.itheima62.smartbj.basepage.SmartServiceBaseTagPager;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
@@ -29,76 +29,83 @@ import com.lidroid.xutils.view.annotation.ViewInject;
  * @描述 主界面的fragment
  * 
  *     @ svn提交者：$Author: gd $ @ 提交时间: $Date: 2015-07-04 17:09:14 +0800 (Sat, 04
- *     Jul 2015) $ @ 当前版本: $Rev: 18 $
+ *     Jul 2015) $ @ 当前版本: $Rev: 28 $
  */
-public class MainContentFragment extends BaseFragment {
+public class MainContentFragment extends BaseFragment
+{
 
 	@ViewInject(R.id.vp_main_content_pages)
-	private ViewPager viewPager;
+	private MyViewPager			viewPager;
 
 	@ViewInject(R.id.rg_content_radios)
-	private RadioGroup rg_radios;
+	private RadioGroup			rg_radios;
 
-	private List<BaseTagPage> pages = new ArrayList<BaseTagPage>();
+	private List<BaseTagPage>	pages	= new ArrayList<BaseTagPage>();
 
-	private int selectedIndex;// 当前选中的页面编号  不给其赋值 默认为0.
+	private int					selectIndex;//设置当前选择的页面编号
 
 	@Override
 	public void initEvent() {
-		// 添加自己的事件（给按钮组加事件）
+		// 添加自己的事件
 
 		// 单选按钮的切换事件
 		rg_radios.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
-
 				// 五个单选按钮
-				switch (checkedId) {// 判断是那个按钮点击的
+				switch (checkedId) {// 是哪个单选按钮点击的
 				case R.id.rb_main_content_home:// 主界面
-					selectedIndex = 0;
+					selectIndex = 0;
 					break;
-				case R.id.rb_main_content_newscenter:// 新闻中心界面
-					selectedIndex = 1;// 记住选中的页面编号
+				case R.id.rb_main_content_newscenter:// 新闻中心界面的切换
+					selectIndex = 1;
 					break;
-				case R.id.rb_main_content_smartservice:// 智慧服务界面
-					selectedIndex = 2;// 记住选中的页面编号
+				case R.id.rb_main_content_smartservice:// 智慧服务面
+					selectIndex = 2;
 					break;
 				case R.id.rb_main_content_govaffairs:// 政务界面
-					selectedIndex = 3;// 记住选中的页面编号
+					selectIndex = 3;
 					break;
 				case R.id.rb_main_content_settingcenter:// 设置中心界面
-					selectedIndex = 4;// 记住选中的页面编号
+					selectIndex = 4;
 					break;
 
 				default:
 					break;
-				}// end switch(checkedId){}
-				switchpage();
+				}// end switch (checkedId) {
+				
+				switchPage();
 			}
 		});
 		super.initEvent();
 	}
+	
+	/**
+	 * 左侧菜单点击，让主界面切换不同的页面
+	 */
+	public void leftMenuClickSwitchPage(int subSelectionIndex){
+		BaseTagPage baseTagPage = pages.get(selectIndex);
+		baseTagPage.switchPage(subSelectionIndex);
+	}
+	
 
-			/**
-			 * 设置选中的页面
-			 */
-			private void switchpage() {
-				// 根据selectedIndex设置选中的页面
-				// BaseTagPage currentPage = pages.get(selectedIndex);
-				viewPager.setCurrentItem(selectedIndex);// 设置viewPager现实的页面
-				// 如果是第一个或者最后一个 则不让左侧菜单滑动出来
-				if (selectedIndex == 0 || selectedIndex == pages.size() - 1) {
-					// 不让左侧菜单滑动出来
-					mainActivity.getSlidingMenu().setTouchModeAbove(
-							SlidingMenu.TOUCHMODE_NONE);// 滑动不出来
-				} else {
-					// 可以滑动出左侧菜单
-					mainActivity.getSlidingMenu().setTouchModeAbove(
-							SlidingMenu.TOUCHMODE_FULLSCREEN);// 屏幕任何位置都可以滑动
-				}
-			}
+	/**
+	 *  设置选中的页面
+	 */
+	protected void switchPage() {
+		//BaseTagPage currentPage = pages.get(selectIndex);
+		viewPager.setCurrentItem(selectIndex);//设置viewpager显示页面
 		
+		//如果是第一个或者是最后一个 不让左侧菜单滑动出来
+		if (selectIndex == 0 || selectIndex == pages.size() - 1) {
+			//不让左侧菜单滑动出来
+			mainActivity.getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);//滑不处理
+		} else {
+			//可以滑动出左侧菜单
+			mainActivity.getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);//屏幕任何位置都可以滑动出
+		}
+	}
 
 	@Override
 	public View initView() {
@@ -126,13 +133,18 @@ public class MainContentFragment extends BaseFragment {
 
 		MyAdapter adapter = new MyAdapter();
 		viewPager.setAdapter(adapter);
+		
+		//viewPager.setOffscreenPageLimit(2);//设置预加载为：前后各2个页面
+		
 		//设置默认选择首页
-		switchpage();
-		//设置第一个按钮被选中（首页）
+		switchPage();
+		//设置第一个按钮被选中(首页)
 		rg_radios.check(R.id.rb_main_content_home);
+		
 	}
 
-	private class MyAdapter extends PagerAdapter {
+	private class MyAdapter extends PagerAdapter
+	{
 
 		@Override
 		public int getCount() {
@@ -142,10 +154,14 @@ public class MainContentFragment extends BaseFragment {
 
 		@Override
 		public Object instantiateItem(ViewGroup container, int position) {
+System.out.println("instantiateItem:" + position);			
 			// TODO Auto-generated method stub
 			BaseTagPage baseTagPage = pages.get(position);
 			View root = baseTagPage.getRoot();
 			container.addView(root);
+			
+			//加载数据库
+			baseTagPage.initData();
 			return root;
 		}
 
@@ -158,6 +174,7 @@ public class MainContentFragment extends BaseFragment {
 		@Override
 		public void destroyItem(ViewGroup container, int position, Object object) {
 			// TODO Auto-generated method stub
+System.out.println("destroyItem:" + position);	
 			container.removeView((View) object);
 		}
 

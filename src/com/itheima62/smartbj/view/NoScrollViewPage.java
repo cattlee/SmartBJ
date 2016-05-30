@@ -6,36 +6,39 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 /**
- * @author ltf
- * @创建时间2016-5-27下午2:11:59
- * @工程名SmartBJ
- * @描述不能华东的viewpage
- * @svn提交者：$Auther$
- * @提交时间：${date}${time}
- * @当前版本：$Rev$
+ * @author Administrator
+ * @创建时间 2015-7-6 上午8:52:25
+ * @描述 不能滑动,懒加载
+ *
+ * @ svn提交者：$Author: gd $
+ * @ 提交时间: $Date: 2015-07-06 10:17:14 +0800 (Mon, 06 Jul 2015) $
+ * @ 当前版本: $Rev: 24 $
  */
-public class NoScrollViewPage extends ViewPager {
-	public NoScrollViewPage(Context context,AttributeSet attrs){
+public class NoScrollViewPage extends MyViewPager
+{
+
+	public NoScrollViewPage(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		// TODO Auto-generated constructor stub
 	}
-	public NoScrollViewPage(Context context){
+
+	public NoScrollViewPage(Context context) {
 		super(context);
+		// TODO Auto-generated constructor stub
 	}
-	/* 
+	
+	/**
 	 * 不让自己拦截
-	 * @see android.support.v4.view.ViewPager#onInterceptTouchEvent(android.view.MotionEvent)
 	 */
 	@Override
-	public boolean onInterceptTouchEvent(MotionEvent arg0) {
+	public boolean onInterceptTouchEvent(MotionEvent ev) {
 		return false;
 	}
-	/* 
-	 * 设置无法获取touch事件
-	 * (non-Javadoc)
-	 * @see android.support.v4.view.ViewPager#onTouchEvent(android.view.MotionEvent)
-	 */
+	
 	@Override
 	public boolean onTouchEvent(MotionEvent ev) {
+		// TODO Auto-generated method stub
 		return false;
 	}
+
 }

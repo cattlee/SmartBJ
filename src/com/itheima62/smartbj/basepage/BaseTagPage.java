@@ -1,14 +1,13 @@
 package com.itheima62.smartbj.basepage;
 
-import com.itheima62.smartbj.R;
-import com.itheima62.smartbj.activity.MainActivity;
-
-import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.itheima62.smartbj.R;
+import com.itheima62.smartbj.activity.MainActivity;
 
 /**
  * @author Administrator
@@ -16,8 +15,8 @@ import android.widget.TextView;
  * @描述 TODO
  *
  * @ svn提交者：$Author: gd $
- * @ 提交时间: $Date: 2015-07-04 17:38:44 +0800 (Sat, 04 Jul 2015) $
- * @ 当前版本: $Rev: 18 $
+ * @ 提交时间: $Date: 2015-07-06 14:57:36 +0800 (Mon, 06 Jul 2015) $
+ * @ 当前版本: $Rev: 28 $
  */
 public class BaseTagPage
 {
@@ -29,7 +28,7 @@ public class BaseTagPage
 	public BaseTagPage(MainActivity context){
 		this.mainActivity = context;
 		initView();//初始化布局
-		initData();
+		
 		initEvent();
 	}
 
@@ -51,12 +50,19 @@ public class BaseTagPage
 			@Override
 			public void onClick(View v) {
 				//打开或者关闭左侧菜单
-				mainActivity.getSlidingMenu().toggle();//左侧页面的开关
+				mainActivity.getSlidingMenu().toggle();//左侧菜单的开关
 			}
 		});
 	}
 	
+	/**
+	 * 此方法在该页面数据显示的时候再调用
+	 */
 	public void initData(){
+		
+	}
+	
+	public void switchPage(int position){
 		
 	}
 	
