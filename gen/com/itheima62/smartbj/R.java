@@ -508,7 +508,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int vpi__tab_unselected_pressed_holo=0x7f020029;
     }
     public static final class id {
-        public static final int action_settings=0x7f09001f;
+        public static final int action_settings=0x7f090022;
         public static final int bottom=0x7f090004;
         public static final int bt_guide_startexp=0x7f09000d;
         public static final int fl_base_content_tag=0x7f090011;
@@ -519,6 +519,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int iv_splash_mainview=0x7f09000e;
         public static final int left=0x7f090006;
         public static final int ll_guide_points=0x7f09000b;
+        public static final int lv_tpi_news_listnews=0x7f090021;
         public static final int margin=0x7f090009;
         public static final int newcenter_tpi=0x7f09001b;
         public static final int newcenter_vp=0x7f09001d;
@@ -536,10 +537,12 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int top=0x7f090005;
         public static final int triangle=0x7f090002;
         public static final int tv_base_content_title=0x7f090010;
+        public static final int tv_tpi_news_pic_desc=0x7f090020;
         public static final int underline=0x7f090003;
         public static final int v_guide_redpoint=0x7f09000c;
         public static final int vp_guide_pages=0x7f09000a;
         public static final int vp_main_content_pages=0x7f090013;
+        public static final int vp_tpi_news_lunbo_pic=0x7f09001f;
     }
     public static final class integer {
         public static final int default_circle_indicator_orientation=0x7f060000;
@@ -559,6 +562,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int leftmenu_list_item=0x7f030007;
         public static final int newscenterpage_content=0x7f030008;
         public static final int slidingmenumain=0x7f030009;
+        public static final int tpi_news_centent=0x7f03000a;
     }
     public static final class menu {
         public static final int main=0x7f0b0000;
