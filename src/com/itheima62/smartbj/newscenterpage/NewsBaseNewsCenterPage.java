@@ -18,6 +18,7 @@ import com.itheima62.smartbj.domain.NewsCenterData;
 import com.itheima62.smartbj.domain.NewsCenterData.NewsData.ViewTagData;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
+import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.viewpagerindicator.TabPageIndicator;
 
 /**
@@ -36,6 +37,12 @@ public class NewsBaseNewsCenterPage extends BaseNewsCenterPage
 
 	@ViewInject(R.id.newcenter_tpi)
 	private TabPageIndicator	tpi_newscenter;
+	//利用注入来完成事件的添加
+	@OnClick(R.id.newscenter_id_nextpage)
+	public void next(View v){
+		//切换到下一个页面，利用viewPage来实现呢
+		vp_newscenter.setCurrentItem(vp_newscenter.getCurrentItem()+1);
+	}
 
 	private List<ViewTagData>	viewTagDatas	= new ArrayList<NewsCenterData.NewsData.ViewTagData>(); // 页签的数据
 

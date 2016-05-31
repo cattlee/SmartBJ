@@ -410,35 +410,35 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int vpiUnderlinePageIndicatorStyle=0x7f010005;
     }
     public static final class bool {
-        public static final int default_circle_indicator_centered=0x7f060000;
-        public static final int default_circle_indicator_snap=0x7f060001;
-        public static final int default_line_indicator_centered=0x7f060002;
-        public static final int default_title_indicator_selected_bold=0x7f060003;
-        public static final int default_underline_indicator_fades=0x7f060004;
+        public static final int default_circle_indicator_centered=0x7f050000;
+        public static final int default_circle_indicator_snap=0x7f050001;
+        public static final int default_line_indicator_centered=0x7f050002;
+        public static final int default_title_indicator_selected_bold=0x7f050003;
+        public static final int default_underline_indicator_fades=0x7f050004;
     }
     public static final class color {
-        public static final int btn_colors=0x7f050011;
-        public static final int default_circle_indicator_fill_color=0x7f050008;
-        public static final int default_circle_indicator_page_color=0x7f050009;
-        public static final int default_circle_indicator_stroke_color=0x7f05000a;
-        public static final int default_line_indicator_selected_color=0x7f05000b;
-        public static final int default_line_indicator_unselected_color=0x7f05000c;
-        public static final int default_title_indicator_footer_color=0x7f05000d;
-        public static final int default_title_indicator_selected_color=0x7f05000e;
-        public static final int default_title_indicator_text_color=0x7f05000f;
-        public static final int default_underline_indicator_selected_color=0x7f050010;
-        public static final int leftmenu_list_item_tv_color=0x7f050012;
-        public static final int rb_colors_selector=0x7f050013;
-        public static final int vpi__background_holo_dark=0x7f050000;
-        public static final int vpi__background_holo_light=0x7f050001;
-        public static final int vpi__bright_foreground_disabled_holo_dark=0x7f050004;
-        public static final int vpi__bright_foreground_disabled_holo_light=0x7f050005;
-        public static final int vpi__bright_foreground_holo_dark=0x7f050002;
-        public static final int vpi__bright_foreground_holo_light=0x7f050003;
-        public static final int vpi__bright_foreground_inverse_holo_dark=0x7f050006;
-        public static final int vpi__bright_foreground_inverse_holo_light=0x7f050007;
-        public static final int vpi__dark_theme=0x7f050014;
-        public static final int vpi__light_theme=0x7f050015;
+        public static final int btn_colors=0x7f040011;
+        public static final int default_circle_indicator_fill_color=0x7f040008;
+        public static final int default_circle_indicator_page_color=0x7f040009;
+        public static final int default_circle_indicator_stroke_color=0x7f04000a;
+        public static final int default_line_indicator_selected_color=0x7f04000b;
+        public static final int default_line_indicator_unselected_color=0x7f04000c;
+        public static final int default_title_indicator_footer_color=0x7f04000d;
+        public static final int default_title_indicator_selected_color=0x7f04000e;
+        public static final int default_title_indicator_text_color=0x7f04000f;
+        public static final int default_underline_indicator_selected_color=0x7f040010;
+        public static final int leftmenu_list_item_tv_color=0x7f040012;
+        public static final int rb_colors_selector=0x7f040013;
+        public static final int vpi__background_holo_dark=0x7f040000;
+        public static final int vpi__background_holo_light=0x7f040001;
+        public static final int vpi__bright_foreground_disabled_holo_dark=0x7f040004;
+        public static final int vpi__bright_foreground_disabled_holo_light=0x7f040005;
+        public static final int vpi__bright_foreground_holo_dark=0x7f040002;
+        public static final int vpi__bright_foreground_holo_light=0x7f040003;
+        public static final int vpi__bright_foreground_inverse_holo_dark=0x7f040006;
+        public static final int vpi__bright_foreground_inverse_holo_light=0x7f040007;
+        public static final int vpi__dark_theme=0x7f040014;
+        public static final int vpi__light_theme=0x7f040015;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -447,21 +447,21 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
          */
-        public static final int activity_horizontal_margin=0x7f08000d;
-        public static final int activity_vertical_margin=0x7f08000e;
-        public static final int default_circle_indicator_radius=0x7f080000;
-        public static final int default_circle_indicator_stroke_width=0x7f080001;
-        public static final int default_line_indicator_gap_width=0x7f080003;
-        public static final int default_line_indicator_line_width=0x7f080002;
-        public static final int default_line_indicator_stroke_width=0x7f080004;
-        public static final int default_title_indicator_clip_padding=0x7f080005;
-        public static final int default_title_indicator_footer_indicator_height=0x7f080007;
-        public static final int default_title_indicator_footer_indicator_underline_padding=0x7f080008;
-        public static final int default_title_indicator_footer_line_height=0x7f080006;
-        public static final int default_title_indicator_footer_padding=0x7f080009;
-        public static final int default_title_indicator_text_size=0x7f08000a;
-        public static final int default_title_indicator_title_padding=0x7f08000b;
-        public static final int default_title_indicator_top_padding=0x7f08000c;
+        public static final int activity_horizontal_margin=0x7f07000d;
+        public static final int activity_vertical_margin=0x7f07000e;
+        public static final int default_circle_indicator_radius=0x7f070000;
+        public static final int default_circle_indicator_stroke_width=0x7f070001;
+        public static final int default_line_indicator_gap_width=0x7f070003;
+        public static final int default_line_indicator_line_width=0x7f070002;
+        public static final int default_line_indicator_stroke_width=0x7f070004;
+        public static final int default_title_indicator_clip_padding=0x7f070005;
+        public static final int default_title_indicator_footer_indicator_height=0x7f070007;
+        public static final int default_title_indicator_footer_indicator_underline_padding=0x7f070008;
+        public static final int default_title_indicator_footer_line_height=0x7f070006;
+        public static final int default_title_indicator_footer_padding=0x7f070009;
+        public static final int default_title_indicator_text_size=0x7f07000a;
+        public static final int default_title_indicator_title_padding=0x7f07000b;
+        public static final int default_title_indicator_top_padding=0x7f07000c;
     }
     public static final class drawable {
         public static final int bottom_tab_bg=0x7f020000;
@@ -481,70 +481,72 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int leftmenu_list_item_tv_drawable=0x7f02000e;
         public static final int menu_arr_normal=0x7f02000f;
         public static final int menu_arr_select=0x7f020010;
-        public static final int news_tab_item_bg_select=0x7f020011;
-        public static final int newscenter=0x7f020012;
-        public static final int newscenter_press=0x7f020013;
-        public static final int rb_colors_selector=0x7f020014;
-        public static final int rb_govaffairs_selector=0x7f020015;
-        public static final int rb_home_selector=0x7f020016;
-        public static final int rb_newscenter_selector=0x7f020017;
-        public static final int rb_settingcenter_selector=0x7f020018;
-        public static final int rb_smartservice_selector=0x7f020019;
-        public static final int red_point=0x7f02001a;
-        public static final int setting=0x7f02001b;
-        public static final int setting_press=0x7f02001c;
-        public static final int smartservice=0x7f02001d;
-        public static final int smartservice_press=0x7f02001e;
-        public static final int splash_bg_newyear_1=0x7f02001f;
-        public static final int splash_sheep_newyear=0x7f020020;
-        public static final int title_red_bg=0x7f020021;
-        public static final int vpi__tab_indicator=0x7f020022;
-        public static final int vpi__tab_selected_focused_holo=0x7f020023;
-        public static final int vpi__tab_selected_holo=0x7f020024;
-        public static final int vpi__tab_selected_pressed_holo=0x7f020025;
-        public static final int vpi__tab_unselected_focused_holo=0x7f020026;
-        public static final int vpi__tab_unselected_holo=0x7f020027;
-        public static final int vpi__tab_unselected_pressed_holo=0x7f020028;
+        public static final int news_cate_arr=0x7f020011;
+        public static final int news_tab_item_bg_select=0x7f020012;
+        public static final int newscenter=0x7f020013;
+        public static final int newscenter_press=0x7f020014;
+        public static final int rb_colors_selector=0x7f020015;
+        public static final int rb_govaffairs_selector=0x7f020016;
+        public static final int rb_home_selector=0x7f020017;
+        public static final int rb_newscenter_selector=0x7f020018;
+        public static final int rb_settingcenter_selector=0x7f020019;
+        public static final int rb_smartservice_selector=0x7f02001a;
+        public static final int red_point=0x7f02001b;
+        public static final int setting=0x7f02001c;
+        public static final int setting_press=0x7f02001d;
+        public static final int smartservice=0x7f02001e;
+        public static final int smartservice_press=0x7f02001f;
+        public static final int splash_bg_newyear_1=0x7f020020;
+        public static final int splash_sheep_newyear=0x7f020021;
+        public static final int title_red_bg=0x7f020022;
+        public static final int vpi__tab_indicator=0x7f020023;
+        public static final int vpi__tab_selected_focused_holo=0x7f020024;
+        public static final int vpi__tab_selected_holo=0x7f020025;
+        public static final int vpi__tab_selected_pressed_holo=0x7f020026;
+        public static final int vpi__tab_unselected_focused_holo=0x7f020027;
+        public static final int vpi__tab_unselected_holo=0x7f020028;
+        public static final int vpi__tab_unselected_pressed_holo=0x7f020029;
     }
     public static final class id {
-        public static final int action_settings=0x7f04001e;
-        public static final int bottom=0x7f040003;
-        public static final int bt_guide_startexp=0x7f04000d;
-        public static final int fl_base_content_tag=0x7f040011;
-        public static final int fl_left_menu=0x7f04001a;
-        public static final int fl_main_menu=0x7f040012;
-        public static final int fullscreen=0x7f040008;
-        public static final int ib_base_content_menu=0x7f04000f;
-        public static final int iv_splash_mainview=0x7f04000e;
-        public static final int left=0x7f040005;
-        public static final int ll_guide_points=0x7f04000b;
-        public static final int margin=0x7f040007;
-        public static final int newcenter_tpi=0x7f04001b;
-        public static final int newcenter_vp=0x7f04001c;
-        public static final int none=0x7f040000;
-        public static final int rb_main_content_govaffairs=0x7f040018;
-        public static final int rb_main_content_home=0x7f040015;
-        public static final int rb_main_content_newscenter=0x7f040016;
-        public static final int rb_main_content_settingcenter=0x7f040019;
-        public static final int rb_main_content_smartservice=0x7f040017;
-        public static final int rg_content_radios=0x7f040014;
-        public static final int right=0x7f040006;
-        public static final int selected_view=0x7f040009;
-        public static final int slidingmenumain=0x7f04001d;
-        public static final int top=0x7f040004;
-        public static final int triangle=0x7f040001;
-        public static final int tv_base_content_title=0x7f040010;
-        public static final int underline=0x7f040002;
-        public static final int v_guide_redpoint=0x7f04000c;
-        public static final int vp_guide_pages=0x7f04000a;
-        public static final int vp_main_content_pages=0x7f040013;
+        public static final int action_settings=0x7f09001f;
+        public static final int bottom=0x7f090004;
+        public static final int bt_guide_startexp=0x7f09000d;
+        public static final int fl_base_content_tag=0x7f090011;
+        public static final int fl_left_menu=0x7f09001a;
+        public static final int fl_main_menu=0x7f090012;
+        public static final int fullscreen=0x7f090008;
+        public static final int ib_base_content_menu=0x7f09000f;
+        public static final int iv_splash_mainview=0x7f09000e;
+        public static final int left=0x7f090006;
+        public static final int ll_guide_points=0x7f09000b;
+        public static final int margin=0x7f090009;
+        public static final int newcenter_tpi=0x7f09001b;
+        public static final int newcenter_vp=0x7f09001d;
+        public static final int newscenter_id_nextpage=0x7f09001c;
+        public static final int none=0x7f090001;
+        public static final int rb_main_content_govaffairs=0x7f090018;
+        public static final int rb_main_content_home=0x7f090015;
+        public static final int rb_main_content_newscenter=0x7f090016;
+        public static final int rb_main_content_settingcenter=0x7f090019;
+        public static final int rb_main_content_smartservice=0x7f090017;
+        public static final int rg_content_radios=0x7f090014;
+        public static final int right=0x7f090007;
+        public static final int selected_view=0x7f090000;
+        public static final int slidingmenumain=0x7f09001e;
+        public static final int top=0x7f090005;
+        public static final int triangle=0x7f090002;
+        public static final int tv_base_content_title=0x7f090010;
+        public static final int underline=0x7f090003;
+        public static final int v_guide_redpoint=0x7f09000c;
+        public static final int vp_guide_pages=0x7f09000a;
+        public static final int vp_main_content_pages=0x7f090013;
     }
     public static final class integer {
-        public static final int default_circle_indicator_orientation=0x7f070000;
-        public static final int default_title_indicator_footer_indicator_style=0x7f070001;
-        public static final int default_title_indicator_line_position=0x7f070002;
-        public static final int default_underline_indicator_fade_delay=0x7f070003;
-        public static final int default_underline_indicator_fade_length=0x7f070004;
+        public static final int default_circle_indicator_orientation=0x7f060000;
+        public static final int default_title_indicator_footer_indicator_style=0x7f060001;
+        public static final int default_title_indicator_line_position=0x7f060002;
+        public static final int default_underline_indicator_fade_delay=0x7f060003;
+        public static final int default_underline_indicator_fade_length=0x7f060004;
     }
     public static final class layout {
         public static final int activity_guide=0x7f030000;
@@ -594,19 +596,21 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f090005;
+        public static final int AppBaseTheme=0x7f080005;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f090006;
-        public static final int TextAppearance_TabPageIndicator=0x7f090003;
-        public static final int Theme_PageIndicatorDefaults=0x7f090000;
-        public static final int Widget=0x7f090001;
-        public static final int Widget_IconPageIndicator=0x7f090004;
-        public static final int Widget_TabPageIndicator=0x7f090002;
+        public static final int AppTheme=0x7f080006;
+        /**   <item name="android:textColor">@color/vpi__dark_theme</item> 
+         */
+        public static final int TextAppearance_TabPageIndicator=0x7f080003;
+        public static final int Theme_PageIndicatorDefaults=0x7f080000;
+        public static final int Widget=0x7f080001;
+        public static final int Widget_IconPageIndicator=0x7f080004;
+        public static final int Widget_TabPageIndicator=0x7f080002;
         /**  radioButton的样式抽取 
          */
-        public static final int radioButtonStyle=0x7f090007;
+        public static final int radioButtonStyle=0x7f080007;
     }
     public static final class styleable {
         /** Attributes that can be used with a CirclePageIndicator.
