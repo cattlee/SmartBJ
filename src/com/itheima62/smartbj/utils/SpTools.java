@@ -1,5 +1,6 @@
 package com.itheima62.smartbj.utils;
 
+import android.R.string;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -14,6 +15,30 @@ import android.content.SharedPreferences;
  */
 public class SpTools
 {
+	/**
+	 * @param key
+	 *        关键字
+	 * @param value
+	 *       对应的值
+	 */
+	public static void setString(Context context,String key,String value){
+		SharedPreferences sp = context.getSharedPreferences(MyConstants.CONFIGFILE, Context.MODE_PRIVATE);
+		sp.edit().putString(key, value).commit();//提交保存键值对
+		
+	}
+	
+	/**
+	 * @param key
+	 *        关键字
+	 * @param value
+	 *       对应的值
+	 */
+	public static  String getString(Context context,String key,String defValue){
+		SharedPreferences sp = context.getSharedPreferences(MyConstants.CONFIGFILE, Context.MODE_PRIVATE);
+		return sp.getString(key, defValue);//提交保存键值对
+		
+	}
+	
 	/**
 	 * @param key
 	 *        关键字

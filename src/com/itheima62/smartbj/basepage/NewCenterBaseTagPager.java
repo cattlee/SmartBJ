@@ -5,6 +5,8 @@ package com.itheima62.smartbj.basepage;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.text.TextUtils;
+
 import com.google.gson.Gson;
 import com.itheima62.smartbj.activity.MainActivity;
 import com.itheima62.smartbj.domain.NewsCenterData;
@@ -14,6 +16,7 @@ import com.itheima62.smartbj.newscenterpage.NewsBaseNewsCenterPage;
 import com.itheima62.smartbj.newscenterpage.PhotosBaseNewsCenterPage;
 import com.itheima62.smartbj.newscenterpage.TopicBaseNewsCenterPage;
 import com.itheima62.smartbj.utils.MyConstants;
+import com.itheima62.smartbj.utils.SpTools;
 import com.itheima62.smartbj.view.LeftMenuFragment.OnSwitchPageListener;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -34,6 +37,7 @@ public class NewCenterBaseTagPager extends BaseTagPage
 	// 新闻中心要显示的四个页面
 	private List<BaseNewsCenterPage>	newsCenterPages	= new ArrayList<BaseNewsCenterPage>();
 	private NewsCenterData	newsCenterData;
+	private Gson gson;
 
 	public NewCenterBaseTagPager(MainActivity context) {
 		super(context);
@@ -41,8 +45,13 @@ public class NewCenterBaseTagPager extends BaseTagPage
 
 	@Override
 	public void initData() {
-
-		// 1.获取网络数据
+		//1、获取本地数据，先加载缓存的数据，再去获取网络数据，防止断网情况下，无数据的显示。即添加数据的缓存功能,将缓存默认是这位空
+		String jsonCache = SpTools.getString(mainActivity, MyConstants.NEWSCENTERURL, "");
+		if(!TextUtils.isEmpty(jsonCache)){//TextUtils用于对字符串进行操作的类（拼接 判断）
+			//有本地数据，从本地取数据显示
+			parseData(jsonCache);
+		}
+		// 2.获取网络数据
 		HttpUtils httpUtils = new HttpUtils();
 		httpUtils.send(HttpMethod.GET, MyConstants.NEWSCENTERURL,
 				new RequestCallBack<String>() {
@@ -51,8 +60,10 @@ public class NewCenterBaseTagPager extends BaseTagPage
 					public void onSuccess(ResponseInfo<String> responseInfo) {
 						// 访问数据成功
 						String jsonData = responseInfo.result;
+						//数据保存到本地, MyConstants.NEWSCENTERURL 为网络地址   保存数据jsonData
+						SpTools.setString(mainActivity, MyConstants.NEWSCENTERURL, jsonData);
 						// System.out.println(jsonData);
-						// 2.解析数据
+						// 3.解析数据
 						parseData(jsonData);
 					}
 
@@ -74,13 +85,13 @@ public class NewCenterBaseTagPager extends BaseTagPage
 	 *            从网络获取到的json数据
 	 */
 	protected void parseData(String jsonData) {
-		// google提供的json解析器
-		Gson gson = new Gson();
+		if(gson==null)
+		gson = new Gson();//防止多次重复初始化对象
 
 		newsCenterData = gson.fromJson(jsonData,
 				NewsCenterData.class);
 
-		// 3.数据的处理
+		//4.数据的处理
 
 		// 在这里给左侧菜单设置数据
 		// System.out.println(newsCenterData.data.get(0).children.get(0).title);
