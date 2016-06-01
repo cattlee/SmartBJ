@@ -5,7 +5,7 @@ import android.content.Context;
 /**
  * @author Administrator
  * @创建时间 2015-7-4 下午2:55:47
- * @描述 TODO
+ * @描述 用于 像素和分辨率之间的转换
  *
  * @ svn提交者：$Author: gd $
  * @ 提交时间: $Date: 2015-07-04 14:57:46 +0800 (Sat, 04 Jul 2015) $
