@@ -15,6 +15,7 @@ import com.itheima62.smartbj.R;
 import com.itheima62.smartbj.activity.MainActivity;
 import com.itheima62.smartbj.domain.NewsCenterData;
 import com.itheima62.smartbj.domain.NewsCenterData.NewsData.ViewTagData;
+import com.itheima62.smartbj.newstpipage.TPINewsNewsCenterPager;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -153,18 +154,27 @@ public class NewsBaseNewsCenterPage extends BaseNewsCenterPage {
 			return view == object;
 		}
 
+		/* (non-Javadoc)
+		 * 当被选中时，调用该方法。此方法返回的内容就是新闻中心中，viewpage的内容。
+		 * @see android.support.v4.view.PagerAdapter#instantiateItem(android.view.ViewGroup, int)
+		 */
 		@Override
 		public Object instantiateItem(ViewGroup container, int position) {
 			// 要展示的内容，
-			TextView tv = new TextView(mainActivity);
+			TPINewsNewsCenterPager tpiPager = new TPINewsNewsCenterPager(mainActivity,viewTagDatas.get(position));
+			View rootView = tpiPager.getRootView();
+			container.addView(rootView);
+			return rootView;
+		/*	TextView tv = new TextView(mainActivity);
 			tv.setText(viewTagDatas.get(position).title);
 			tv.setTextSize(25);
 			tv.setGravity(Gravity.CENTER);
 
 			container.addView(tv);
 
-			return tv;
+			return tv;*/
 		}
+
 
 		@Override
 		public void destroyItem(ViewGroup container, int position, Object object) {

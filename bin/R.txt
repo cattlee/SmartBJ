@@ -127,7 +127,7 @@ int drawable vpi__tab_selected_pressed_holo 0x7f020026
 int drawable vpi__tab_unselected_focused_holo 0x7f020027
 int drawable vpi__tab_unselected_holo 0x7f020028
 int drawable vpi__tab_unselected_pressed_holo 0x7f020029
-int id action_settings 0x7f090022
+int id action_settings 0x7f090023
 int id bottom 0x7f090004
 int id bt_guide_startexp 0x7f09000d
 int id fl_base_content_tag 0x7f090011
@@ -138,7 +138,8 @@ int id ib_base_content_menu 0x7f09000f
 int id iv_splash_mainview 0x7f09000e
 int id left 0x7f090006
 int id ll_guide_points 0x7f09000b
-int id lv_tpi_news_listnews 0x7f090021
+int id ll_tpi_news_pic_points 0x7f090021
+int id lv_tpi_news_listnews 0x7f090022
 int id margin 0x7f090009
 int id newcenter_tpi 0x7f09001b
 int id newcenter_vp 0x7f09001d
