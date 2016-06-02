@@ -40,13 +40,15 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
+
 /**
- * @author Administrator
- * @创建时间 2015-7-7 上午9:53:48
- * @描述 新闻中心页签对应的页面
- * 
- *     @ svn提交者：$Author: gd $ @ 提交时间: $Date: 2015-07-07 16:52:09 +0800 (Tue, 07
- *     Jul 2015) $ @ 当前版本: $Rev: 46 $
+ * @author ltf
+ * @创建时间2016-6-2下午4:56:38
+ * @工程名SmartBJ
+ * @描述    新闻中心页签对应的页面
+ * @svn提交者：$Auther$
+ * @提交时间：${date}${time}
+ * @当前版本：$Rev$
  */
 public class TPINewsNewsCenterPager {
 	private static final Class<Object> TPINewsData = null;
@@ -85,6 +87,7 @@ public class TPINewsNewsCenterPager {
 	private Handler handler;
 
 	private LunBoTask lunboTask;
+	
 	// 新闻列表的数据
 	private List<TPINewsData_Data_ListNewsData> listNews = new ArrayList<TPINewsData.TPINewsData_Data.TPINewsData_Data_ListNewsData>();
 
@@ -172,7 +175,7 @@ public class TPINewsNewsCenterPager {
 		// 3. 设置图片描述和点的选中效果
 		setPicDescAndPointSelect(picSelectIndex);
 
-		// 4. 开始轮播图
+		// 4. 开始轮播图        lunboProcess（）轮播图的处理
 		lunboTask.startLunbo();
 
 		// 5. 新闻列表的数据
@@ -188,7 +191,7 @@ public class TPINewsNewsCenterPager {
 			com.itheima62.smartbj.domain.TPINewsData newsData) {
 
 		listNews = newsData.data.news;
-		// 更新界面
+		// 更新界面，适配器与新闻中心 控件结合  进行操作
 		listNewsAdapter.notifyDataSetChanged();
 	}
 
@@ -200,17 +203,20 @@ public class TPINewsNewsCenterPager {
 
 			handler = new Handler();
 		}
-		// 清空掉原来所有的任务
+		// 清空掉原来所有的任务，防止重复加载页面  页面加载太快
 		handler.removeCallbacksAndMessages(null);
-
+		
+		 //延迟1.5s 时间  发送消息
 		handler.postDelayed(new Runnable() {
 
 			@Override
 			public void run() {
 				// 任务
-				// 控制轮播图的显示
+				// 控制轮播图的显示，ViewPage.setCurrentItem( )直接跳转到指定页面
 				vp_lunbo.setCurrentItem((vp_lunbo.getCurrentItem() + 1)
 						% vp_lunbo.getAdapter().getCount());
+				
+				//再发一次
 				handler.postDelayed(this, 1500);
 			}
 		}, 1500);
@@ -218,16 +224,19 @@ public class TPINewsNewsCenterPager {
 
 	private class LunBoTask extends Handler implements Runnable {
 
+		/**
+		 * 控制轮播图 不再移动（当用户触摸轮播图时，轮播图不应该再移动）
+		 */
 		public void stopLunbo() {
 			// 移除当前所有的任务
 			removeCallbacksAndMessages(null);
 		}
 
 		public void startLunbo() {
-			stopLunbo();
+			stopLunbo();//移除轮播图
 			postDelayed(this, 2000);
 		}
-
+		//runable 的抽象方法
 		@Override
 		public void run() {
 			// 控制轮播图的显示
@@ -278,6 +287,15 @@ public class TPINewsNewsCenterPager {
 		lunboAdapter.notifyDataSetChanged();// 更新界面
 	}
 
+	/**
+	 * @author ltf
+	 * @创建时间2016-6-2下午4:55:41
+	 * @工程名SmartBJ
+	 * @描述     新闻中心中  新闻列表的适配器
+	 * @svn提交者：$Auther$
+	 * @提交时间：${date}${time}
+	 * @当前版本：$Rev$
+	 */
 	private class ListNewsAdapter extends BaseAdapter {
 
 		@Override
@@ -298,12 +316,19 @@ public class TPINewsNewsCenterPager {
 			return 0;
 		}
 
+		/* (non-Javadoc)
+		 * 进行显示新闻列表数据
+		 * @see android.widget.Adapter#getView(int, android.view.View, android.view.ViewGroup)
+		 */
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder holder = null;
+			//convertView  为缓存视图
 			if (convertView == null) {
+				//获取缓存视图
 				convertView = View.inflate(mainActivity,
 						R.layout.tpi_news_listview_item, null);
+				
 				holder = new ViewHolder();
 				holder.iv_icon = (ImageView) convertView
 						.findViewById(R.id.iv_tpi_news_listview_item_icon);
@@ -319,7 +344,7 @@ public class TPINewsNewsCenterPager {
 			}
 
 			// 设置数据
-
+			//获取数据
 			TPINewsData_Data_ListNewsData tpiNewsData_Data_ListNewsData = listNews
 					.get(position);
 			// 设置标题
@@ -328,7 +353,7 @@ public class TPINewsNewsCenterPager {
 			// 设置时间
 			holder.tv_time.setText(tpiNewsData_Data_ListNewsData.pubdate);
 
-			// 设置图片
+			// 设置图片  利用xutils  读取url为convertView的 图片数据
 			bitmapUtils.display(holder.iv_newspic,
 					tpiNewsData_Data_ListNewsData.listimage);
 
@@ -337,6 +362,15 @@ public class TPINewsNewsCenterPager {
 
 	}
 
+	/**
+	 * @author ltf
+	 * @创建时间2016-6-2下午4:59:07
+	 * @工程名SmartBJ
+	 * @描述    新闻中心 新闻列表的 缓存类
+	 * @svn提交者：$Auther$
+	 * @提交时间：${date}${time}
+	 * @当前版本：$Rev$
+	 */
 	private class ViewHolder {
 		ImageView iv_newspic;
 		TextView tv_title;
@@ -393,7 +427,7 @@ public class TPINewsNewsCenterPager {
 					case MotionEvent.ACTION_CANCEL:// 事件取消
 						lunboTask.startLunbo();
 						break;
-					case MotionEvent.ACTION_UP:// 松开
+					case MotionEvent.ACTION_ UP:// 松开
 						float upX = event.getX();
 						float upY = event.getY();
 
