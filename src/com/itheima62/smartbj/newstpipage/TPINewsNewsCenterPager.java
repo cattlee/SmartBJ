@@ -65,7 +65,7 @@ public class TPINewsNewsCenterPager {
 	private LinearLayout ll_points;// 轮播图的每张图片对应的点组合
 
 	@ViewInject(R.id.lv_tpi_news_listnews)
-	private ListView lv_listnews;// 显示列表新闻的组件
+	private com.itheima62.smartbj.view.RefreshListView lv_listnews;// 显示列表新闻的组件
 
 	// 数据
 	private MainActivity mainActivity;
@@ -525,7 +525,7 @@ public class TPINewsNewsCenterPager {
 		ViewUtils.inject(this, lunBoPic);
 
 		// 把轮播图加到listView中    加载到listview的头上
-		lv_listnews.addHeaderView(lunBoPic);
+		lv_listnews.addLunboView(lunBoPic);
 	}
 
 	public View getRootView() {
