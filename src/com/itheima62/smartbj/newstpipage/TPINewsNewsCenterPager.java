@@ -427,7 +427,7 @@ public class TPINewsNewsCenterPager {
 					case MotionEvent.ACTION_CANCEL:// 事件取消
 						lunboTask.startLunbo();
 						break;
-					case MotionEvent.ACTION_ UP:// 松开
+					case MotionEvent.ACTION_UP:// 松开
 						float upX = event.getX();
 						float upY = event.getY();
 
@@ -524,7 +524,7 @@ public class TPINewsNewsCenterPager {
 				null);
 		ViewUtils.inject(this, lunBoPic);
 
-		// 把轮播图加到listView中
+		// 把轮播图加到listView中    加载到listview的头上
 		lv_listnews.addHeaderView(lunBoPic);
 	}
 

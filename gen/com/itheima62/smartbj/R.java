@@ -523,12 +523,12 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int fullscreen=0x7f090008;
         public static final int ib_base_content_menu=0x7f09000f;
         public static final int iv_splash_mainview=0x7f09000e;
-        public static final int iv_tpi_news_listview_item_icon=0x7f090026;
-        public static final int iv_tpi_news_listview_item_pic=0x7f090023;
+        public static final int iv_tpi_news_listview_item_icon=0x7f090023;
+        public static final int iv_tpi_news_listview_item_pic=0x7f090020;
         public static final int left=0x7f090006;
         public static final int ll_guide_points=0x7f09000b;
-        public static final int ll_tpi_news_pic_points=0x7f090021;
-        public static final int lv_tpi_news_listnews=0x7f090022;
+        public static final int ll_tpi_news_pic_points=0x7f090026;
+        public static final int lv_tpi_news_listnews=0x7f09001f;
         public static final int margin=0x7f090009;
         public static final int newcenter_tpi=0x7f09001b;
         public static final int newcenter_vp=0x7f09001d;
@@ -546,14 +546,14 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int top=0x7f090005;
         public static final int triangle=0x7f090002;
         public static final int tv_base_content_title=0x7f090010;
-        public static final int tv_tpi_news_listview_item_time=0x7f090025;
-        public static final int tv_tpi_news_listview_item_title=0x7f090024;
-        public static final int tv_tpi_news_pic_desc=0x7f090020;
+        public static final int tv_tpi_news_listview_item_time=0x7f090022;
+        public static final int tv_tpi_news_listview_item_title=0x7f090021;
+        public static final int tv_tpi_news_pic_desc=0x7f090025;
         public static final int underline=0x7f090003;
         public static final int v_guide_redpoint=0x7f09000c;
         public static final int vp_guide_pages=0x7f09000a;
         public static final int vp_main_content_pages=0x7f090013;
-        public static final int vp_tpi_news_lunbo_pic=0x7f09001f;
+        public static final int vp_tpi_news_lunbo_pic=0x7f090024;
     }
     public static final class integer {
         public static final int default_circle_indicator_orientation=0x7f060000;
@@ -575,6 +575,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int slidingmenumain=0x7f030009;
         public static final int tpi_news_centent=0x7f03000a;
         public static final int tpi_news_listview_item=0x7f03000b;
+        public static final int tpi_news_lunbopic=0x7f03000c;
     }
     public static final class menu {
         public static final int main=0x7f0b0000;
