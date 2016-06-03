@@ -259,13 +259,14 @@ public class RefreshListView extends ListView
 
 		foot = View.inflate(getContext(), R.layout.listview_refresh_foot, null);
 
-		// 测量尾部组件的高度
+		// 测量尾部组件的高度     以（0,0）为坐标原点
 
 		foot.measure(0, 0);
 
 		// listview尾部组件的高度
 		ll_refresh_foot_Height = foot.getMeasuredHeight();
-
+		 
+		//设置尾部组件foot的padding   每个组件都可以设置padding
 		foot.setPadding(0, -ll_refresh_foot_Height, 0, 0);
 		
 		
@@ -287,6 +288,8 @@ public class RefreshListView extends ListView
 	 * 初始化头部组件
 	 */
 	private void initHead() {
+		
+		//View.flate(,,)将布局转化为组件
 		head = (LinearLayout) View.inflate(getContext(),
 				R.layout.listview_head_container, null);
 		// listview刷新头的根布局
@@ -310,12 +313,14 @@ public class RefreshListView extends ListView
 		
 		// 隐藏刷新头的根布局，轮播图还要显示
 
-		// 获取刷新头组件的高度
+		// 获取刷新头组件的高度   对view进行测量   测量坐标为（0,0）
 		ll_refresh_head_root.measure(0, 0);
 
-		// 获取测量的高度
+		// 获取测量后的高度
 		ll_refresh_head_root_Height = ll_refresh_head_root.getMeasuredHeight();
-
+		
+		
+		// 隐藏刷新头的根布局，轮播图还要显示 利用setPadding（）方法实现隐藏
 		ll_refresh_head_root.setPadding(0, -ll_refresh_head_root_Height, 0, 0);
 
 		//加载头组件到 listview
