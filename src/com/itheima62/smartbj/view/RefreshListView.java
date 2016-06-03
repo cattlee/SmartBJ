@@ -143,7 +143,7 @@ public class RefreshListView extends ListView {
 				// 刷新数据
 				ll_refresh_head_root.setPadding(0, 0, 0, 0);
 				currentState = REFRESHING;// 改变状态为正在刷新数据的状态
-				refreshState();// 刷新界面
+				refreshState();// 更新 刷新界面
 				// 真的刷新数据
 				if (listener != null) {
 					listener.refresdData();
