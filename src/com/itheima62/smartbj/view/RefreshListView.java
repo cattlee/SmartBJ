@@ -1,5 +1,3 @@
-
-
 package com.itheima62.smartbj.view;
 
 import java.text.SimpleDateFormat;
@@ -23,33 +21,32 @@ import com.itheima62.smartbj.R;
  * @author ltf
  * @创建时间2016-6-2下午8:15:48
  * @工程名SmartBJ
- * @描述       自定义  刷新头和加载数据尾  的ListView
+ * @描述 自定义 刷新头和加载数据尾 的ListView
  * @svn提交者：$Auther$
- * @提交时间：${date}${time}
+ * @提交时间：${date ${time}
  * @当前版本：$Rev$
  */
-public class RefreshListView extends ListView
-{
+public class RefreshListView extends ListView {
 
-	private View			foot;							// listview加载更多数据的尾部组件
-	private LinearLayout	head;							// listview刷新数据的头部组件
-	private LinearLayout	ll_refresh_head_root;
-	private int				ll_refresh_head_root_Height;
-	private int				ll_refresh_foot_Height;
-	private float			downY			= -1;			//作为其是否获得坐标的标记
-	private final int		PULL_DOWN		= 1;			// 下拉刷新状态
-	private final int		RELEASE_STATE	= 2;			// 松开刷新
-	private final int		REFRESHING		= 3;			// 正在刷新
-	private int				currentState	= PULL_DOWN;	// 当前的状态
-	private View			lunbotu;
-	private int				listViewOnScreanY;				// listview在屏幕中的y轴坐标位置
-	private TextView	tv_state;
-	private TextView	tv_time;
-	private ImageView	iv_arrow;
-	private ProgressBar	pb_loading;
-	private RotateAnimation	up_ra;
-	private RotateAnimation	down_ra;
-	private OnRefreshDataListener listener;//刷新数据的监听回调
+	private View foot; // listview加载更多数据的尾部组件
+	private LinearLayout head; // listview刷新数据的头部组件
+	private LinearLayout ll_refresh_head_root;
+	private int ll_refresh_head_root_Height;
+	private int ll_refresh_foot_Height;
+	private float downY = -1; // 作为其是否获得坐标的标记
+	private final int PULL_DOWN = 1; // 下拉刷新状态
+	private final int RELEASE_STATE = 2; // 松开刷新
+	private final int REFRESHING = 3; // 正在刷新
+	private int currentState = PULL_DOWN; // 当前的状态
+	private View lunbotu;
+	private int listViewOnScreanY; // listview在屏幕中的y轴坐标位置
+	private TextView tv_state;
+	private TextView tv_time;
+	private ImageView iv_arrow;		//刷新动画的图片view
+	private ProgressBar pb_loading;
+	private RotateAnimation up_ra;
+	private RotateAnimation down_ra;
+	private OnRefreshDataListener listener;// 刷新数据的监听回调
 
 	public RefreshListView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -59,14 +56,14 @@ public class RefreshListView extends ListView
 	}
 
 	public RefreshListView(Context context, AttributeSet attrs) {
-		
-		//通过配置文件 配置组件 调用该构造函数
+
+		// 通过配置文件 配置组件 调用该构造函数
 		this(context, attrs, 0);
 	}
 
 	public RefreshListView(Context context) {
-		
-		//代码写组件 调用该构造函数
+
+		// 代码写组件 调用该构造函数
 		this(context, null);
 
 	}
@@ -81,14 +78,16 @@ public class RefreshListView extends ListView
 	 * (non-Javadoc)
 	 * 
 	 * @see android.widget.AbsListView#onTouchEvent(android.view.MotionEvent)
-	 * 覆盖此父类onTouchEvent（）方法   完成自己的事件处理，listview的拖动事件也写在ontouchevent（）中了
-	 * 手机屏幕事件的处理方法onTouchEvent。该方法在View类中的定义，并且所有的View子类全部重写了该方法，应用程序可以通过该方法处理手机屏幕的触摸事件
-	 * 参数event为手机屏幕触摸事件封装类的对象，其中封装了该事件的所有信息，例如触摸的位置、触摸的类型以及触摸的时间等。该对象会在用户触摸手机屏幕时被创建。
+	 * 覆盖此父类onTouchEvent（）方法 完成自己的事件处理，listview的拖动事件也写在ontouchevent（）中了
+	 * 手机屏幕事件的处理方法onTouchEvent
+	 * 。该方法在View类中的定义，并且所有的View子类全部重写了该方法，应用程序可以通过该方法处理手机屏幕的触摸事件
+	 * 参数event为手机屏幕触摸事件封装类的对象
+	 * ，其中封装了该事件的所有信息，例如触摸的位置、触摸的类型以及触摸的时间等。该对象会在用户触摸手机屏幕时被创建。
 	 */
 	@Override
 	public boolean onTouchEvent(MotionEvent ev) {
 		// 需要我们的功能屏蔽掉父类的touch事件，其他任然按照父类处理
-		// 下拉拖动（当listview显示第一个条数据）时  屏蔽父类事件
+		// 下拉拖动（当listview显示第一个条数据）时 屏蔽父类事件
 
 		switch (ev.getAction()) {
 		case MotionEvent.ACTION_DOWN:// 按下
@@ -97,8 +96,8 @@ public class RefreshListView extends ListView
 		case MotionEvent.ACTION_MOVE:// 移动
 
 			if (!isLunboFullShow()) {
-				// 轮播图没有完全显示，其响应的是listview的事件 （开始在设置轮播图和listview 响应事件时  如是定义）
-				break;//跳出，执行父类的事件
+				// 轮播图没有完全显示，其响应的是listview的事件 （开始在设置轮播图和listview 响应事件时 如是定义）
+				break;// 跳出，执行父类的事件
 			}
 
 			if (downY == -1) { // 按下的时候没有获取坐标，重新获取值
@@ -121,9 +120,11 @@ public class RefreshListView extends ListView
 					// 刷新头没有完全显示
 					// 下拉刷新的状态
 					currentState = PULL_DOWN;// 目的只执行一次
+					// 更新 缓存箭头动画
 					refreshState();
 				} else if (scrollYDis >= 0 && currentState != RELEASE_STATE) {
 					currentState = RELEASE_STATE;// 记录松开刷新，只进了一次
+					// 更新 缓存箭头动画
 					refreshState();
 				}
 				ll_refresh_head_root.setPadding(0, (int) scrollYDis, 0, 0);
@@ -133,18 +134,17 @@ public class RefreshListView extends ListView
 			break;
 		case MotionEvent.ACTION_UP:// 松开
 			downY = -1;
-			//判断状态
-			//如果是PULL_DOWN状态,松开恢复原状
+			// 判断状态
+			// 如果是PULL_DOWN状态,松开恢复原状
 			if (currentState == PULL_DOWN) {
-				ll_refresh_head_root.setPadding(0, -ll_refresh_head_root_Height, 0,
-						0);
+				ll_refresh_head_root.setPadding(0,
+						-ll_refresh_head_root_Height, 0, 0);
 			} else if (currentState == RELEASE_STATE) {
-				//刷新数据
-				ll_refresh_head_root.setPadding(0, 0, 0,
-						0);
-				currentState = REFRESHING;//改变状态为正在刷新数据的状态
-				refreshState();//刷新界面
-				//真的刷新数据
+				// 刷新数据
+				ll_refresh_head_root.setPadding(0, 0, 0, 0);
+				currentState = REFRESHING;// 改变状态为正在刷新数据的状态
+				refreshState();// 刷新界面
+				// 真的刷新数据
 				if (listener != null) {
 					listener.refresdData();
 				}
@@ -153,73 +153,81 @@ public class RefreshListView extends ListView
 		default:
 			break;
 		}
-		
-		//本方法没有覆盖的方法仍然  按照父类方法去调用。
+
+		// 本方法没有覆盖的方法仍然 按照父类方法去调用。
 		return super.onTouchEvent(ev);
 	}
-	
+
 	public void setOnRefreshDataListener(OnRefreshDataListener listener) {
 		this.listener = listener;
 	}
-	public interface OnRefreshDataListener{
+
+	public interface OnRefreshDataListener {
 		void refresdData();
 	}
-	
-	private void initAnimation(){
-		up_ra = new RotateAnimation(0, -180,
-				Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+
+	private void initAnimation() {
+		//往上的动画
+		up_ra = new RotateAnimation(0, -180, Animation.RELATIVE_TO_SELF, 0.5f,
+				Animation.RELATIVE_TO_SELF, 0.5f);
 		up_ra.setDuration(500);
-		up_ra.setFillAfter(true);//停留在动画结束的状态
+		up_ra.setFillAfter(true);// 停留在动画结束的状态
 		
-		down_ra = new RotateAnimation(-180, -360,
-				Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+		//往下的动画
+		down_ra = new RotateAnimation(-180, -360, Animation.RELATIVE_TO_SELF,
+				0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 		down_ra.setDuration(500);
-		down_ra.setFillAfter(true);//停留在动画结束的状态
+		down_ra.setFillAfter(true);// 停留在动画结束的状态
 	}
 
+	/**
+	 * 刷新状态的切换动画
+	 */
 	private void refreshState() {
 		switch (currentState) {
 		case PULL_DOWN:// 下拉刷新
 			System.out.println("下拉刷新");
-			//改变文件
+			// 改变文字
 			tv_state.setText("下拉刷新");
+			//添加刷新状态的动画效果 向上动画
 			iv_arrow.startAnimation(down_ra);
 			break;
 		case RELEASE_STATE:// 松开刷新
 			System.out.println("松开刷新");
-		    tv_state.setText("松开刷新");
-		    iv_arrow.startAnimation(up_ra);
+			tv_state.setText("松开刷新");
+			//添加刷新状态的动画效果  向下动画
+			iv_arrow.startAnimation(up_ra);
 			break;
-		case REFRESHING://正在刷新状态
-			iv_arrow.clearAnimation();//清除所有动画
-			iv_arrow.setVisibility(View.GONE);//隐藏箭头
-			pb_loading.setVisibility(View.VISIBLE);//显示进度条
+		case REFRESHING:// 正在刷新状态
+			iv_arrow.clearAnimation();// 清除所有动画
+			iv_arrow.setVisibility(View.GONE);// 隐藏箭头
+			pb_loading.setVisibility(View.VISIBLE);// 显示进度条
 			tv_state.setText("正在刷新数据");
-			
+
 		default:
 			break;
 		}
 
 	}
-	
+
 	/**
 	 * 刷新数据成功,处理结果
 	 */
-	public void refreshStateFinish(){
-		//下拉刷新
-		
-		//改变文件
+	public void refreshStateFinish() {
+		// 下拉刷新
+
+		// 改变文件
 		tv_state.setText("下拉刷新");
-		iv_arrow.setVisibility(View.VISIBLE);//显示箭头
-		pb_loading.setVisibility(View.INVISIBLE);//隐藏进度条
-		//设置刷新时间为当前时间
+		iv_arrow.setVisibility(View.VISIBLE);// 显示箭头
+		pb_loading.setVisibility(View.INVISIBLE);// 隐藏进度条
+		// 设置刷新时间为当前时间
 		tv_time.setText(getCurrentFormatDate());
-		//隐藏刷新的头布局
+		// 隐藏刷新的头布局
 		ll_refresh_head_root.setPadding(0, -ll_refresh_head_root_Height, 0, 0);
-		
+
 	}
-	
-	private String getCurrentFormatDate(){
+
+	private String getCurrentFormatDate() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return format.format(new Date());
 	}
@@ -236,7 +244,7 @@ public class RefreshListView extends ListView
 		// 判断轮播图是否完全显示
 		// 取listview在屏幕中坐标 和 轮播图在屏幕中的坐标 判断
 		// 取listview在屏幕中坐标
-		if (listViewOnScreanY == 0) {//说明还没有获取listview的坐标，下一步进行判断
+		if (listViewOnScreanY == 0) {// 说明还没有获取listview的坐标，下一步进行判断
 			this.getLocationOnScreen(location);
 			// 获取listview在屏幕中的y轴坐标
 			listViewOnScreanY = location[1];
@@ -263,24 +271,23 @@ public class RefreshListView extends ListView
 
 		foot = View.inflate(getContext(), R.layout.listview_refresh_foot, null);
 
-		// 测量尾部组件的高度     以（0,0）为坐标原点
+		// 测量尾部组件的高度 以（0,0）为坐标原点
 
 		foot.measure(0, 0);
 
 		// listview尾部组件的高度
 		ll_refresh_foot_Height = foot.getMeasuredHeight();
-		 
-		//设置尾部组件foot的padding   每个组件都可以设置padding
+
+		// 设置尾部组件foot的padding 每个组件都可以设置padding
 		foot.setPadding(0, -ll_refresh_foot_Height, 0, 0);
-		
-		
-		//尾部组件foot    加载ListView中
+
+		// 尾部组件foot 加载ListView中
 		addFooterView(foot);
 	}
 
 	/**
 	 * @param view
-	 *          加载  轮播图view
+	 *            加载 轮播图view
 	 */
 	public void addLunboView(View view) {
 		// 轮播图的组件
@@ -292,42 +299,44 @@ public class RefreshListView extends ListView
 	 * 初始化头部组件
 	 */
 	private void initHead() {
-		
-		//View.flate(,,)将布局转化为组件
+
+		// View.flate(,,)将布局转化为组件
 		head = (LinearLayout) View.inflate(getContext(),
 				R.layout.listview_head_container, null);
 		// listview刷新头的根布局
 		ll_refresh_head_root = (LinearLayout) head
 				.findViewById(R.id.ll_listview_head_root);
-		
-		//获取刷新头布局的子组件
-		//刷新状态的文件描述
-		tv_state = (TextView) head.findViewById(R.id.tv_listview_head_state_dec);
-		//最新的刷新时间
-		
-		tv_time = (TextView) head.findViewById(R.id.tv_listview_head_refresh_time);
-		
-		//下拉刷新的箭头
-		
+
+		// 获取刷新头布局的子组件
+		// 刷新状态的文件描述
+		tv_state = (TextView) head
+				.findViewById(R.id.tv_listview_head_state_dec);
+		// 最新的刷新时间
+
+		tv_time = (TextView) head
+				.findViewById(R.id.tv_listview_head_refresh_time);
+
+		// 下拉刷新的箭头
+
 		iv_arrow = (ImageView) head.findViewById(R.id.iv_listview_head_arrow);
-		
-		//下拉刷新的进度
-		
-		pb_loading = (ProgressBar) head.findViewById(R.id.pb_listview_head_loading);
-		
+
+		// 下拉刷新的进度
+
+		pb_loading = (ProgressBar) head
+				.findViewById(R.id.pb_listview_head_loading);
+
 		// 隐藏刷新头的根布局，轮播图还要显示
 
-		// 获取刷新头组件的高度   对view进行测量   测量坐标为（0,0）
+		// 获取刷新头组件的高度 对view进行测量 测量坐标为（0,0）
 		ll_refresh_head_root.measure(0, 0);
 
 		// 获取测量后的高度
 		ll_refresh_head_root_Height = ll_refresh_head_root.getMeasuredHeight();
-		
-		
+
 		// 隐藏刷新头的根布局，轮播图还要显示 利用setPadding（）方法实现隐藏
 		ll_refresh_head_root.setPadding(0, -ll_refresh_head_root_Height, 0, 0);
 
-		//加载头组件到 listview
+		// 加载头组件到 listview
 		addHeaderView(head);
 	}
 
