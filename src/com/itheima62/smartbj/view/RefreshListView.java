@@ -144,7 +144,7 @@ public class RefreshListView extends ListView {
 				ll_refresh_head_root.setPadding(0, 0, 0, 0);
 				currentState = REFRESHING;// 改变状态为正在刷新数据的状态
 				refreshState();// 更新 刷新界面
-				// 真的刷新数据
+				// 真正的     刷新数据
 				if (listener != null) {
 					listener.refresdData();
 				}
@@ -158,10 +158,26 @@ public class RefreshListView extends ListView {
 		return super.onTouchEvent(ev);
 	}
 
+	
+	/**
+	 * 新闻中心   新闻listview数据更新监听器
+	 * @param listener
+	 */
 	public void setOnRefreshDataListener(OnRefreshDataListener listener) {
 		this.listener = listener;
 	}
+	
+	
 
+	/**
+	 * @author ltf
+	 * @创建时间2016-6-3下午4:15:58
+	 * @工程名SmartBJ
+	 * @描述   刷新数据的接口监听器
+	 * @svn提交者：$Auther$
+	 * @提交时间：${date}${time}
+	 * @当前版本：$Rev$
+	 */
 	public interface OnRefreshDataListener {
 		void refresdData();
 	}
@@ -211,7 +227,7 @@ public class RefreshListView extends ListView {
 	}
 
 	/**
-	 * 刷新数据成功,处理结果
+	 * 刷新数据成功     ,调用该方法处理结果
 	 */
 	public void refreshStateFinish() {
 		// 下拉刷新
@@ -222,11 +238,14 @@ public class RefreshListView extends ListView {
 		pb_loading.setVisibility(View.INVISIBLE);// 隐藏进度条
 		// 设置刷新时间为当前时间
 		tv_time.setText(getCurrentFormatDate());
-		// 隐藏刷新的头布局
+		// 隐藏    刷新的头布局
 		ll_refresh_head_root.setPadding(0, -ll_refresh_head_root_Height, 0, 0);
 
 	}
 
+	/**
+	 * @return    获取当前时间
+	 */
 	private String getCurrentFormatDate() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return format.format(new Date());

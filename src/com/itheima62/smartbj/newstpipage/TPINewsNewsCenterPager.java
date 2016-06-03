@@ -18,8 +18,8 @@ import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
-import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.itheima62.smartbj.R;
@@ -31,6 +31,7 @@ import com.itheima62.smartbj.domain.TPINewsData.TPINewsData_Data.TPINewsData_Dat
 import com.itheima62.smartbj.utils.DensityUtil;
 import com.itheima62.smartbj.utils.MyConstants;
 import com.itheima62.smartbj.utils.SpTools;
+import com.itheima62.smartbj.view.RefreshListView.OnRefreshDataListener;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
@@ -40,14 +41,13 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
-
 /**
  * @author ltf
  * @创建时间2016-6-2下午4:56:38
  * @工程名SmartBJ
- * @描述    新闻中心页签对应的页面
+ * @描述 新闻中心页签对应的页面
  * @svn提交者：$Auther$
- * @提交时间：${date}${time}
+ * @提交时间：${date ${time}
  * @当前版本：$Rev$
  */
 public class TPINewsNewsCenterPager {
@@ -65,7 +65,7 @@ public class TPINewsNewsCenterPager {
 	private LinearLayout ll_points;// 轮播图的每张图片对应的点组合
 
 	@ViewInject(R.id.lv_tpi_news_listnews)
-	private com.itheima62.smartbj.view.RefreshListView lv_listnews;// 显示列表新闻的组件
+	private com.itheima62.smartbj.view.RefreshListView lv_listnews;// 显示列表新闻的组件，真正包含数据的组件
 
 	// 数据
 	private MainActivity mainActivity;
@@ -73,6 +73,7 @@ public class TPINewsNewsCenterPager {
 	private ViewTagData viewTagData;// 页签对应的数据
 
 	private Gson gson;
+	private boolean isFresh;			//表示 新闻中心数据刷新的状态   是否是刷新数据的状态
 
 	// 轮播图的数据
 	private List<TPINewsData_Data_LunBoData> lunboDatas = new ArrayList<TPINewsData.TPINewsData_Data.TPINewsData_Data_LunBoData>();
@@ -87,7 +88,7 @@ public class TPINewsNewsCenterPager {
 	private Handler handler;
 
 	private LunBoTask lunboTask;
-	
+
 	// 新闻列表的数据
 	private List<TPINewsData_Data_ListNewsData> listNews = new ArrayList<TPINewsData.TPINewsData_Data.TPINewsData_Data_ListNewsData>();
 
@@ -110,14 +111,34 @@ public class TPINewsNewsCenterPager {
 		initEvent();// 初始化事件
 	}
 
+	// 在initEvent（）刷新数据
+
+	/**
+	 * 初始化事件
+	 */
 	private void initEvent() {
+		
+		//进行刷新数据的操作
+		lv_listnews.setOnRefreshDataListener(new OnRefreshDataListener() {
+
+	
+
+			@Override
+			public void refresdData() {
+				isFresh = true;
+				// 刷新数据
+				getDataFromNet();
+				// 改变listview的状态
+			}
+		});
+
 		// 给轮播图添加页面切换事件（滑动新闻中心的viewpage时对相应页面添加不同的图标和点）
 		vp_lunbo.setOnPageChangeListener(new OnPageChangeListener() {
 
 			@Override
 			public void onPageSelected(int position) {
 				picSelectIndex = position;
-				//设置图片的信息和点
+				// 设置图片的信息和点
 				setPicDescAndPointSelect(picSelectIndex);
 			}
 
@@ -175,7 +196,7 @@ public class TPINewsNewsCenterPager {
 		// 3. 设置图片描述和点的选中效果
 		setPicDescAndPointSelect(picSelectIndex);
 
-		// 4. 开始轮播图        lunboProcess（）轮播图的处理
+		// 4. 开始轮播图 lunboProcess（）轮播图的处理
 		lunboTask.startLunbo();
 
 		// 5. 新闻列表的数据
@@ -191,7 +212,7 @@ public class TPINewsNewsCenterPager {
 			com.itheima62.smartbj.domain.TPINewsData newsData) {
 
 		listNews = newsData.data.news;
-		// 更新界面，适配器与新闻中心 控件结合  进行操作
+		// 更新界面，适配器与新闻中心 控件结合 进行操作
 		listNewsAdapter.notifyDataSetChanged();
 	}
 
@@ -203,10 +224,10 @@ public class TPINewsNewsCenterPager {
 
 			handler = new Handler();
 		}
-		// 清空掉原来所有的任务，防止重复加载页面  页面加载太快
+		// 清空掉原来所有的任务，防止重复加载页面 页面加载太快
 		handler.removeCallbacksAndMessages(null);
-		
-		 //延迟1.5s 时间  发送消息
+
+		// 延迟1.5s 时间 发送消息
 		handler.postDelayed(new Runnable() {
 
 			@Override
@@ -215,8 +236,8 @@ public class TPINewsNewsCenterPager {
 				// 控制轮播图的显示，ViewPage.setCurrentItem( )直接跳转到指定页面
 				vp_lunbo.setCurrentItem((vp_lunbo.getCurrentItem() + 1)
 						% vp_lunbo.getAdapter().getCount());
-				
-				//再发一次
+
+				// 再发一次
 				handler.postDelayed(this, 1500);
 			}
 		}, 1500);
@@ -233,10 +254,11 @@ public class TPINewsNewsCenterPager {
 		}
 
 		public void startLunbo() {
-			stopLunbo();//移除轮播图
+			stopLunbo();// 移除轮播图
 			postDelayed(this, 2000);
 		}
-		//runable 的抽象方法
+
+		// runable 的抽象方法
 		@Override
 		public void run() {
 			// 控制轮播图的显示
@@ -291,9 +313,9 @@ public class TPINewsNewsCenterPager {
 	 * @author ltf
 	 * @创建时间2016-6-2下午4:55:41
 	 * @工程名SmartBJ
-	 * @描述     新闻中心中  新闻列表的适配器
+	 * @描述 新闻中心中 新闻列表的适配器
 	 * @svn提交者：$Auther$
-	 * @提交时间：${date}${time}
+	 * @提交时间：${date ${time}
 	 * @当前版本：$Rev$
 	 */
 	private class ListNewsAdapter extends BaseAdapter {
@@ -316,19 +338,21 @@ public class TPINewsNewsCenterPager {
 			return 0;
 		}
 
-		/* (non-Javadoc)
-		 * 进行显示新闻列表数据
-		 * @see android.widget.Adapter#getView(int, android.view.View, android.view.ViewGroup)
+		/*
+		 * (non-Javadoc) 进行显示新闻列表数据
+		 * 
+		 * @see android.widget.Adapter#getView(int, android.view.View,
+		 * android.view.ViewGroup)
 		 */
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder holder = null;
-			//convertView  为缓存视图
+			// convertView 为缓存视图
 			if (convertView == null) {
-				//获取缓存视图
+				// 获取缓存视图
 				convertView = View.inflate(mainActivity,
 						R.layout.tpi_news_listview_item, null);
-				
+
 				holder = new ViewHolder();
 				holder.iv_icon = (ImageView) convertView
 						.findViewById(R.id.iv_tpi_news_listview_item_icon);
@@ -344,7 +368,7 @@ public class TPINewsNewsCenterPager {
 			}
 
 			// 设置数据
-			//获取数据
+			// 获取数据
 			TPINewsData_Data_ListNewsData tpiNewsData_Data_ListNewsData = listNews
 					.get(position);
 			// 设置标题
@@ -353,7 +377,7 @@ public class TPINewsNewsCenterPager {
 			// 设置时间
 			holder.tv_time.setText(tpiNewsData_Data_ListNewsData.pubdate);
 
-			// 设置图片  利用xutils  读取url为convertView的 图片数据
+			// 设置图片 利用xutils 读取url为convertView的 图片数据
 			bitmapUtils.display(holder.iv_newspic,
 					tpiNewsData_Data_ListNewsData.listimage);
 
@@ -366,9 +390,9 @@ public class TPINewsNewsCenterPager {
 	 * @author ltf
 	 * @创建时间2016-6-2下午4:59:07
 	 * @工程名SmartBJ
-	 * @描述    新闻中心 新闻列表的 缓存类
+	 * @描述 新闻中心 新闻列表的 缓存类
 	 * @svn提交者：$Auther$
-	 * @提交时间：${date}${time}
+	 * @提交时间：${date ${time}
 	 * @当前版本：$Rev$
 	 */
 	private class ViewHolder {
@@ -505,11 +529,21 @@ public class TPINewsNewsCenterPager {
 
 						// 处理数据
 						processData(newsData);
+						if(isFresh){
+							lv_listnews.refreshStateFinish();
+							Toast.makeText(mainActivity, "刷新数据成功", 1).show();
+						}
+						
+						//数据刷新状态  的    刷新
+						lv_listnews.refreshStateFinish();
 					}
 
 					@Override
 					public void onFailure(HttpException error, String msg) {
 						// 请求数据失败
+						//数据刷新状态  的    刷新
+						lv_listnews.refreshStateFinish();
+						Toast.makeText(mainActivity, "刷新数据失败", 1).show();
 					}
 				});
 	}
@@ -524,7 +558,7 @@ public class TPINewsNewsCenterPager {
 				null);
 		ViewUtils.inject(this, lunBoPic);
 
-		// 把轮播图加到listView中    加载到listview的头上
+		// 把轮播图加到listView中 加载到listview的头上
 		lv_listnews.addLunboView(lunBoPic);
 	}
 
