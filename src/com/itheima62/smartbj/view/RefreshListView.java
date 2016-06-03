@@ -36,7 +36,7 @@ public class RefreshListView extends ListView
 	private LinearLayout	ll_refresh_head_root;
 	private int				ll_refresh_head_root_Height;
 	private int				ll_refresh_foot_Height;
-	private float			downY			= -1;
+	private float			downY			= -1;			//作为其是否获得坐标的标记
 	private final int		PULL_DOWN		= 1;			// 下拉刷新状态
 	private final int		RELEASE_STATE	= 2;			// 松开刷新
 	private final int		REFRESHING		= 3;			// 正在刷新
@@ -81,12 +81,14 @@ public class RefreshListView extends ListView
 	 * (non-Javadoc)
 	 * 
 	 * @see android.widget.AbsListView#onTouchEvent(android.view.MotionEvent)
-	 * 覆盖此完成自己的事件处理
+	 * 覆盖此父类onTouchEvent（）方法   完成自己的事件处理，listview的拖动事件也写在ontouchevent（）中了
+	 * 手机屏幕事件的处理方法onTouchEvent。该方法在View类中的定义，并且所有的View子类全部重写了该方法，应用程序可以通过该方法处理手机屏幕的触摸事件
+	 * 参数event为手机屏幕触摸事件封装类的对象，其中封装了该事件的所有信息，例如触摸的位置、触摸的类型以及触摸的时间等。该对象会在用户触摸手机屏幕时被创建。
 	 */
 	@Override
 	public boolean onTouchEvent(MotionEvent ev) {
-		// 需要我们的功能屏蔽掉父类的touch事件
-		// 下拉拖动（当listview显示第一个条数据）
+		// 需要我们的功能屏蔽掉父类的touch事件，其他任然按照父类处理
+		// 下拉拖动（当listview显示第一个条数据）时  屏蔽父类事件
 
 		switch (ev.getAction()) {
 		case MotionEvent.ACTION_DOWN:// 按下
@@ -95,11 +97,11 @@ public class RefreshListView extends ListView
 		case MotionEvent.ACTION_MOVE:// 移动
 
 			if (!isLunboFullShow()) {
-				// 轮播图没有完全显示
-				break;
+				// 轮播图没有完全显示，其响应的是listview的事件 （开始在设置轮播图和listview 响应事件时  如是定义）
+				break;//跳出，执行父类的事件
 			}
 
-			if (downY == -1) { // 按下的时候没有获取坐标
+			if (downY == -1) { // 按下的时候没有获取坐标，重新获取值
 				downY = ev.getY();
 			}
 
@@ -151,6 +153,8 @@ public class RefreshListView extends ListView
 		default:
 			break;
 		}
+		
+		//本方法没有覆盖的方法仍然  按照父类方法去调用。
 		return super.onTouchEvent(ev);
 	}
 	
@@ -232,7 +236,7 @@ public class RefreshListView extends ListView
 		// 判断轮播图是否完全显示
 		// 取listview在屏幕中坐标 和 轮播图在屏幕中的坐标 判断
 		// 取listview在屏幕中坐标
-		if (listViewOnScreanY == 0) {
+		if (listViewOnScreanY == 0) {//说明还没有获取listview的坐标，下一步进行判断
 			this.getLocationOnScreen(location);
 			// 获取listview在屏幕中的y轴坐标
 			listViewOnScreanY = location[1];
