@@ -9,6 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
+import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -42,17 +43,59 @@ public class RefreshListView extends ListView {
 	private int listViewOnScreanY; // listview在屏幕中的y轴坐标位置
 	private TextView tv_state;
 	private TextView tv_time;
-	private ImageView iv_arrow;		//刷新动画的图片view
+	private ImageView iv_arrow; // 刷新动画的图片view
 	private ProgressBar pb_loading;
 	private RotateAnimation up_ra;
 	private RotateAnimation down_ra;
 	private OnRefreshDataListener listener;// 刷新数据的监听回调
+	private boolean isEnablePullRefresh;// 下拉刷新是否可用 默认为false。
+	private boolean isloadingMore; // 是否处于加载更多数据的操作
 
 	public RefreshListView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		// TODO Auto-generated constructor stub
 		initView();
 		initAnimation();
+
+		// 初始化事件
+		initEvent();
+	}
+
+	/**
+	 * 初始化事件的方法
+	 */
+	private void initEvent() {
+		// 添加当前Listview的滑动事件,设置监听器OnScrollListener
+		setOnScrollListener(new OnScrollListener() {
+
+			@Override
+			public void onScrollStateChanged(AbsListView view, int scrollState) {
+				// 滑动状态的改变,状态停止时，如果ListView显示最后一条，加载更多数据的显示
+				// 判断是否是最后一条数据显示,且当不处于数据加载状态（防止多次重复加载）
+				if (getLastVisiblePosition() == getAdapter().getCount() - 1&&!isloadingMore) {
+					// 如果是最后一条数据，显示加载更多的组件
+					foot.setPadding(0, 0, 0, 0);// 显示加载更多数据，设置foot（view）自身内容和wait框的间距。
+					// listview.setselection(position)，表示将列表移动到指定的Position处。
+					setSelection(getAdapter().getCount());// 新加载的数据相当于position为
+															// getAdapter().getCount()
+
+					// 加载更多的数据
+					
+					isloadingMore=true;
+					if (listener != null) {
+						listener.loadingMore();// 实现该接口的组件去完成数据的加载
+
+					}
+				}
+			}
+
+			@Override
+			public void onScroll(AbsListView view, int firstVisibleItem,
+					int visibleItemCount, int totalItemCount) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 	}
 
 	public RefreshListView(Context context, AttributeSet attrs) {
@@ -70,7 +113,7 @@ public class RefreshListView extends ListView {
 
 	private void initView() {
 		// TODO Auto-generated method stub
-		initRoot();
+		initFoot();
 		initHead();
 	}
 
@@ -95,6 +138,16 @@ public class RefreshListView extends ListView {
 			break;
 		case MotionEvent.ACTION_MOVE:// 移动
 
+			// 判断现在是否处于刷新数据的状态
+			if (currentState == REFRESHING) {
+				// 数据正在刷新
+				break;
+
+			}
+			if (!isEnablePullRefresh) {
+				// 如果不启用下拉刷新，直接跳出
+				break;
+			}
 			if (!isLunboFullShow()) {
 				// 轮播图没有完全显示，其响应的是listview的事件 （开始在设置轮播图和listview 响应事件时 如是定义）
 				break;// 跳出，执行父类的事件
@@ -144,7 +197,7 @@ public class RefreshListView extends ListView {
 				ll_refresh_head_root.setPadding(0, 0, 0, 0);
 				currentState = REFRESHING;// 改变状态为正在刷新数据的状态
 				refreshState();// 更新 刷新界面
-				// 真正的     刷新数据
+				// 真正的 刷新数据
 				if (listener != null) {
 					listener.refresdData();
 				}
@@ -158,38 +211,38 @@ public class RefreshListView extends ListView {
 		return super.onTouchEvent(ev);
 	}
 
-	
 	/**
-	 * 新闻中心   新闻listview数据更新监听器
+	 * 新闻中心 新闻listview数据更新监听器
+	 * 
 	 * @param listener
 	 */
 	public void setOnRefreshDataListener(OnRefreshDataListener listener) {
 		this.listener = listener;
 	}
-	
-	
 
 	/**
 	 * @author ltf
 	 * @创建时间2016-6-3下午4:15:58
 	 * @工程名SmartBJ
-	 * @描述   刷新数据的接口监听器
+	 * @描述 刷新数据的接口监听器
 	 * @svn提交者：$Auther$
-	 * @提交时间：${date}${time}
+	 * @提交时间：${date ${time}
 	 * @当前版本：$Rev$
 	 */
 	public interface OnRefreshDataListener {
 		void refresdData();
+
+		void loadingMore();// 加载更多数据
 	}
 
 	private void initAnimation() {
-		//往上的动画
+		// 往上的动画
 		up_ra = new RotateAnimation(0, -180, Animation.RELATIVE_TO_SELF, 0.5f,
 				Animation.RELATIVE_TO_SELF, 0.5f);
 		up_ra.setDuration(500);
 		up_ra.setFillAfter(true);// 停留在动画结束的状态
-		
-		//往下的动画
+
+		// 往下的动画
 		down_ra = new RotateAnimation(-180, -360, Animation.RELATIVE_TO_SELF,
 				0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 		down_ra.setDuration(500);
@@ -205,13 +258,13 @@ public class RefreshListView extends ListView {
 			System.out.println("下拉刷新");
 			// 改变文字
 			tv_state.setText("下拉刷新");
-			//添加刷新状态的动画效果 向上动画
+			// 添加刷新状态的动画效果 向上动画
 			iv_arrow.startAnimation(down_ra);
 			break;
 		case RELEASE_STATE:// 松开刷新
 			System.out.println("松开刷新");
 			tv_state.setText("松开刷新");
-			//添加刷新状态的动画效果  向下动画
+			// 添加刷新状态的动画效果 向下动画
 			iv_arrow.startAnimation(up_ra);
 			break;
 		case REFRESHING:// 正在刷新状态
@@ -227,24 +280,33 @@ public class RefreshListView extends ListView {
 	}
 
 	/**
-	 * 刷新数据成功     ,调用该方法处理结果
+	 * 刷新数据成功 ,调用该方法处理结果
 	 */
 	public void refreshStateFinish() {
 		// 下拉刷新
+		if (isloadingMore) {
+			// 加载更多数据
+			isloadingMore=false;
+			//隐藏加载更多数据的组件
+		foot.setPadding(0, -ll_refresh_foot_Height, 0, 0);
+		} else {
+			// 改变下拉刷新
+			tv_state.setText("下拉刷新");
+			iv_arrow.setVisibility(View.VISIBLE);// 显示箭头
+			pb_loading.setVisibility(View.INVISIBLE);// 隐藏进度条
+			// 设置刷新时间为当前时间
+			tv_time.setText(getCurrentFormatDate());
+			// 隐藏 刷新的头布局
+			ll_refresh_head_root.setPadding(0, -ll_refresh_head_root_Height, 0,
+					0);
 
-		// 改变文件
-		tv_state.setText("下拉刷新");
-		iv_arrow.setVisibility(View.VISIBLE);// 显示箭头
-		pb_loading.setVisibility(View.INVISIBLE);// 隐藏进度条
-		// 设置刷新时间为当前时间
-		tv_time.setText(getCurrentFormatDate());
-		// 隐藏    刷新的头布局
-		ll_refresh_head_root.setPadding(0, -ll_refresh_head_root_Height, 0, 0);
+			currentState = PULL_DOWN;// 初始化为下拉刷新的状态
+		}
 
 	}
 
 	/**
-	 * @return    获取当前时间
+	 * @return 获取当前时间
 	 */
 	private String getCurrentFormatDate() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -285,7 +347,7 @@ public class RefreshListView extends ListView {
 	/**
 	 * 初始化尾部组件
 	 */
-	private void initRoot() {
+	private void initFoot() {
 		// 获取 listview 的尾部组件foot
 
 		foot = View.inflate(getContext(), R.layout.listview_refresh_foot, null);
@@ -305,13 +367,34 @@ public class RefreshListView extends ListView {
 	}
 
 	/**
+	 * 用户自己选择是否启用下拉刷新头的功能
+	 * 
+	 * @param isPullrefresh
+	 * 
+	 *            true 启用下拉刷新 false 不用下拉刷新
+	 * 
+	 */
+	public void setIsRefreshHead(boolean isPullrefresh) {
+		isEnablePullRefresh = isPullrefresh;
+	}
+
+	/**
 	 * @param view
 	 *            加载 轮播图view
 	 */
-	public void addLunboView(View view) {
-		// 轮播图的组件
-		lunbotu = view;
-		head.addView(view);
+	@Override
+	public void addHeaderView(View view) {
+		// 判断 如果你使用下拉刷新 ，把头布局加下拉刷新的容器中，否则加载原生Listview的中
+		if (isEnablePullRefresh) {
+			// 启用下拉刷新
+			// 轮播图的组件
+			lunbotu = view;
+			head.addView(view);
+		} else {
+			// 使用原生的ListView（即 父类listview）
+			super.addHeaderView(view);
+		}
+
 	}
 
 	/**
