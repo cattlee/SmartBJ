@@ -8,13 +8,13 @@ import android.widget.TextView;
 
 
 /**
- * @author Administrator
- * @创建时间 2015-7-6 下午2:20:16
- * @描述 TODO
- *
- * @ svn提交者：$Author: gd $
- * @ 提交时间: $Date: 2015-07-06 14:57:36 +0800 (Mon, 06 Jul 2015) $
- * @ 当前版本: $Rev: 28 $
+ * @author ltf
+ * @创建时间2016-6-7上午10:05:25
+ * @工程名SmartBJ
+ * @描述   专题
+ * @svn提交者：$Auther$
+ * @提交时间：${date}${time}
+ * @当前版本：$Rev$
  */
 public class TopicBaseNewsCenterPage extends BaseNewsCenterPage
 {

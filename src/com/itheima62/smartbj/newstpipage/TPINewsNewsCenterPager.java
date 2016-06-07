@@ -3,6 +3,7 @@ package com.itheima62.smartbj.newstpipage;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.graphics.Bitmap.Config;
 import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
@@ -13,6 +14,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
@@ -24,6 +27,8 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.itheima62.smartbj.R;
 import com.itheima62.smartbj.activity.MainActivity;
+import com.itheima62.smartbj.activity.NewsDetailAcitivity;
+import com.itheima62.smartbj.basepage.NewCenterBaseTagPager;
 import com.itheima62.smartbj.domain.NewsCenterData.NewsData.ViewTagData;
 import com.itheima62.smartbj.domain.TPINewsData;
 import com.itheima62.smartbj.domain.TPINewsData.TPINewsData_Data.TPINewsData_Data_ListNewsData;
@@ -31,6 +36,7 @@ import com.itheima62.smartbj.domain.TPINewsData.TPINewsData_Data.TPINewsData_Dat
 import com.itheima62.smartbj.utils.DensityUtil;
 import com.itheima62.smartbj.utils.MyConstants;
 import com.itheima62.smartbj.utils.SpTools;
+import com.itheima62.smartbj.view.MyViewPager;
 import com.itheima62.smartbj.view.RefreshListView.OnRefreshDataListener;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
@@ -121,8 +127,50 @@ public class TPINewsNewsCenterPager {
 	 * 初始化事件
 	 */
 	private void initEvent() {
+		//给新闻加点击事件
+				lv_listnews.setOnItemClickListener(new OnItemClickListener() {
 
-		// 进行刷新数据的操作
+					@Override
+					public void onItemClick(AdapterView<?> parent, View view,
+							int position, long id) {
+						System.out.println(position + ":" + position);
+						//获取点击当前新闻的链接
+						TPINewsData_Data_ListNewsData tpiNewsData_Data_ListNewsData = listNews.get(position - 1);
+						String newsurl = tpiNewsData_Data_ListNewsData.url;
+						//获取新闻的id
+						String newsid = tpiNewsData_Data_ListNewsData.id;
+						
+						
+						//获取新闻的标记 id
+						//保存id sharedpreferences
+						String readIDs = SpTools.getString(mainActivity, MyConstants.READNEWSIDS, null);
+						if (TextUtils.isEmpty(readIDs)) {
+							//第一次 没有保存过id
+							readIDs = newsid;//保存当前新闻的id
+						} else {
+							//添加保存新闻id
+							readIDs += "," + newsid;
+						}
+						//重新保存读过的新闻的id
+						SpTools.setString(mainActivity,MyConstants.READNEWSIDS, readIDs);
+						
+						// 修改读过的新闻字体颜色
+						//告诉界面更新
+						listNewsAdapter.notifyDataSetChanged();
+						
+						
+						
+						
+						//跳转到新闻页面显示新闻
+						
+						Intent newsActivity = new Intent(mainActivity,NewsDetailAcitivity.class);
+						//加载数据  将地址传递给activity 
+						newsActivity.putExtra("newsurl", newsurl);
+						mainActivity.startActivity(newsActivity);
+					}
+				});
+				
+		// 进行刷新listview数据的操作  监听器
 		lv_listnews.setOnRefreshDataListener(new OnRefreshDataListener() {
 
 			// OnRefreshDataListener()为Redreshlistener中定义的接口。刷新数据的接口监听器。
