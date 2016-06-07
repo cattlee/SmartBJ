@@ -70,7 +70,8 @@ public class NewsDetailAcitivity extends Activity
 					//通过对话框来修改字体大小 五种字体大小
 					showChangeTextSizeDialog();
 					//设置字体大小 wv_setting.setTextSize(TextSize.)
-				case R.id.ib_base_content_share://分享
+				case R.id.ib_base_content_share:
+					//分享    getApplicationContext()获取上下文
 					SharedAppUtils.showShare(getApplicationContext());
 					break;
 				default:

@@ -3,16 +3,20 @@
 package com.itheima62.smartbj.utils;
 
 import android.content.Context;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.onekeyshare.OnekeyShare;
 
 /**
  * @author Administrator
  * @创建时间 2015-7-10 下午2:03:17
- * @描述 TODO
+ * @描述                     快速集成 分享到  新浪微信的  方法 记性提取 集成
  * 
  *     @ svn提交者：$Author: gd $ @ 提交时间: $Date: 2015-07-10 14:13:10 +0800 (Fri, 10 Jul 2015) $ @ 当前版本: $Rev: 61 $
  */
 public class SharedAppUtils
 {
+	//快速集成   分享到新浪  微信
+	//没有成员变量  方法 应该声明  成  静态方法
 
 	public  static  void showShare(Context context) {
 		ShareSDK.initSDK(context);
