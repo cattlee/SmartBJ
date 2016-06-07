@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.Intent;
 import android.graphics.Bitmap.Config;
+import android.graphics.Color;
 import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -101,8 +102,8 @@ public class TPINewsNewsCenterPager {
 	private ListNewsAdapter listNewsAdapter;
 
 	private String loadingMoreDatasUrl;// 加载更多数据的url
-	
-	private String loadingDataUrl;  //加载更多数据的url
+
+	private String loadingDataUrl; // 加载更多数据的url
 
 	public TPINewsNewsCenterPager(MainActivity mainActivity,
 			ViewTagData viewTagData) {
@@ -127,50 +128,53 @@ public class TPINewsNewsCenterPager {
 	 * 初始化事件
 	 */
 	private void initEvent() {
-		//给新闻加点击事件
-				lv_listnews.setOnItemClickListener(new OnItemClickListener() {
+		// 给新闻加点击事件
+		lv_listnews.setOnItemClickListener(new OnItemClickListener() {
 
-					@Override
-					public void onItemClick(AdapterView<?> parent, View view,
-							int position, long id) {
-						System.out.println(position + ":" + position);
-						//获取点击当前新闻的链接
-						TPINewsData_Data_ListNewsData tpiNewsData_Data_ListNewsData = listNews.get(position - 1);
-						String newsurl = tpiNewsData_Data_ListNewsData.url;
-						//获取新闻的id
-						String newsid = tpiNewsData_Data_ListNewsData.id;
-						
-						
-						//获取新闻的标记 id
-						//保存id sharedpreferences
-						String readIDs = SpTools.getString(mainActivity, MyConstants.READNEWSIDS, null);
-						if (TextUtils.isEmpty(readIDs)) {
-							//第一次 没有保存过id
-							readIDs = newsid;//保存当前新闻的id
-						} else {
-							//添加保存新闻id
-							readIDs += "," + newsid;
-						}
-						//重新保存读过的新闻的id
-						SpTools.setString(mainActivity,MyConstants.READNEWSIDS, readIDs);
-						
-						// 修改读过的新闻字体颜色
-						//告诉界面更新
-						listNewsAdapter.notifyDataSetChanged();
-						
-						
-						
-						
-						//跳转到新闻页面显示新闻
-						
-						Intent newsActivity = new Intent(mainActivity,NewsDetailAcitivity.class);
-						//加载数据  将地址传递给activity 
-						newsActivity.putExtra("newsurl", newsurl);
-						mainActivity.startActivity(newsActivity);
-					}
-				});
-				
-		// 进行刷新listview数据的操作  监听器
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				System.out.println(position + ":" + position);
+				// 获取点击当前新闻的链接
+				TPINewsData_Data_ListNewsData tpiNewsData_Data_ListNewsData = listNews
+						.get(position - 1);
+				String newsurl = tpiNewsData_Data_ListNewsData.url;
+				// 获取新闻的 当前 id
+				String newsid = tpiNewsData_Data_ListNewsData.id;
+
+				// 获取新闻的标记 id
+				// 保存id sharedpreferences
+				String readIDs = SpTools.getString(mainActivity,
+						MyConstants.READNEWSIDS, null);
+				if (TextUtils.isEmpty(readIDs)) {
+					// 第一次 没有保存过id
+					// 保存当前新闻的id
+					readIDs = newsid;
+				} else {
+					// 添加保存新闻id，用"," 进行区分
+					readIDs += "," + newsid;
+				}
+				// 重新保存读过的新闻的id，到SharedPreference，第二个参数为键
+				// 第三个参数为值。setString（）保存键值对
+				SpTools.setString(mainActivity, MyConstants.READNEWSIDS,
+						readIDs);
+
+				// 修改读过的新闻字体颜色
+
+				// 告诉界面更新 listNewsAdapter新闻中心listview的适配器 进行更新。
+				listNewsAdapter.notifyDataSetChanged();
+
+				// 跳转到新闻页面显示新闻
+
+				Intent newsActivity = new Intent(mainActivity,
+						NewsDetailAcitivity.class);
+				// 加载数据 将地址传递给activity
+				newsActivity.putExtra("newsurl", newsurl);
+				mainActivity.startActivity(newsActivity);
+			}
+		});
+
+		// 进行刷新listview数据的操作 监听器
 		lv_listnews.setOnRefreshDataListener(new OnRefreshDataListener() {
 
 			// OnRefreshDataListener()为Redreshlistener中定义的接口。刷新数据的接口监听器。
@@ -178,7 +182,7 @@ public class TPINewsNewsCenterPager {
 			public void refresdData() {
 				isFresh = true;
 				// 刷新数据
-				getDataFromNet(MyConstants.SERVERURL + viewTagData.url,false);
+				getDataFromNet(MyConstants.SERVERURL + viewTagData.url, false);
 				// 改变listview的状态
 			}
 
@@ -190,10 +194,10 @@ public class TPINewsNewsCenterPager {
 					// 关闭 刷新数据的状态
 					lv_listnews.refreshStateFinish();
 				} else {
-					System.out.println("url:"+loadingMoreDatasUrl);
+					System.out.println("url:" + loadingMoreDatasUrl);
 					// 有数据 访问网络读取数据
-					getDataFromNet(loadingMoreDatasUrl,true);// loadingMoreDatasUrl为更多数据的url
-					
+					getDataFromNet(loadingMoreDatasUrl, true);// loadingMoreDatasUrl为更多数据的url
+
 				}
 			}
 		});
@@ -236,15 +240,15 @@ public class TPINewsNewsCenterPager {
 		lv_listnews.setAdapter(listNewsAdapter);
 
 		// 从本地获取数据
-		String jsonCache = SpTools.getString(mainActivity,loadingDataUrl, "");
+		String jsonCache = SpTools.getString(mainActivity, loadingDataUrl, "");
 		if (!TextUtils.isEmpty(jsonCache)) {
 			// 有数据，解析数据
 			com.itheima62.smartbj.domain.TPINewsData newsData = parseJson(jsonCache);
 			// 处理数据
 			processData(newsData);
 		}
-		loadingDataUrl=MyConstants.SERVERURL + viewTagData.url;
-		getDataFromNet(loadingDataUrl,false);// 从网络获取数据
+		loadingDataUrl = MyConstants.SERVERURL + viewTagData.url;
+		getDataFromNet(loadingDataUrl, false);// 从网络获取数据
 	}
 
 	/**
@@ -336,8 +340,8 @@ public class TPINewsNewsCenterPager {
 	}
 
 	private void setPicDescAndPointSelect(int picSelectIndex) {
-		//越界判断
-		if (picSelectIndex<0||picSelectIndex>lunboDatas.size()-1) {
+		// 越界判断
+		if (picSelectIndex < 0 || picSelectIndex > lunboDatas.size() - 1) {
 			return;
 		}
 		// 设置描述信息
@@ -383,7 +387,7 @@ public class TPINewsNewsCenterPager {
 	 * @author ltf
 	 * @创建时间2016-6-2下午4:55:41
 	 * @工程名SmartBJ
-	 * @描述 新闻中心中 新闻列表的适配器
+	 * @描述                                                                                  新闻中心中 新闻列表的适配器
 	 * @svn提交者：$Auther$
 	 * @提交时间：${date ${time}
 	 * @当前版本：$Rev$
@@ -436,18 +440,34 @@ public class TPINewsNewsCenterPager {
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
+			System.out.println("position:"+position);
+				//设置数据
+			
+			TPINewsData_Data_ListNewsData tpiNewsData_Data_ListNewsData = listNews.get(position);
 
-			// 设置数据
-			// 获取数据
-			TPINewsData_Data_ListNewsData tpiNewsData_Data_ListNewsData = listNews
-					.get(position);
+			// 判断该新闻是否读取过
+			//当前读取的新闻的id 编号
+			String newsId = tpiNewsData_Data_ListNewsData.id;
+			//获取MyConstants内保存的 读取的 新闻的id
+			String readnewsIds = SpTools.getString(mainActivity,
+					MyConstants.READNEWSIDS, "");
+			//判断readnewsIds是否为空   并且判断  字符串readnewsIds是否包含newsId，包含则说明是读过的
+			if (TextUtils.isEmpty(readnewsIds) || !readnewsIds.contains(newsId)) {
+				// 空 没有保存过id
+				holder.tv_title.setTextColor(Color.BLACK);
+				holder.tv_time.setTextColor(Color.BLACK);
+			} else {
+				holder.tv_title.setTextColor(Color.GRAY);
+				holder.tv_time.setTextColor(Color.GRAY);
+			}
+
 			// 设置标题
 			holder.tv_title.setText(tpiNewsData_Data_ListNewsData.title);
 
 			// 设置时间
 			holder.tv_time.setText(tpiNewsData_Data_ListNewsData.pubdate);
 
-			// 设置图片 利用xutils 读取url为convertView的 图片数据
+			// 设置图片
 			bitmapUtils.display(holder.iv_newspic,
 					tpiNewsData_Data_ListNewsData.listimage);
 
@@ -578,14 +598,14 @@ public class TPINewsNewsCenterPager {
 		TPINewsData tpiNewsData = gson.fromJson(jsonData, TPINewsData.class);
 		if (!TextUtils.isEmpty(tpiNewsData.data.more)) {
 			loadingMoreDatasUrl = MyConstants.SERVERURL + tpiNewsData.data.more;
-		}else {
-			//数据为空,url为空
-			loadingMoreDatasUrl="";
+		} else {
+			// 数据为空,url为空
+			loadingMoreDatasUrl = "";
 		}
 		return tpiNewsData;
 	}
 
-	private void getDataFromNet(final String url,final boolean isloadingMore) {
+	private void getDataFromNet(final String url, final boolean isloadingMore) {
 		// httpUtils
 		HttpUtils httpUtils = new HttpUtils();
 		httpUtils.send(HttpMethod.GET, url, new RequestCallBack<String>() {
@@ -603,18 +623,18 @@ public class TPINewsNewsCenterPager {
 
 				// 判断是否是加载更多的数据,加载更多数据和刷新数据处理有所不同
 				if (isloadingMore) {
-					//原有数据+新数据,将新数据加载到原来的数据之上
+					// 原有数据+新数据,将新数据加载到原来的数据之上
 					listNews.addAll(newsData.data.news);
-					//更新界面,notifyDataSetChanged()当底层数据发生变化时，反映数据的视图都应该更新自己
+					// 更新界面,notifyDataSetChanged()当底层数据发生变化时，反映数据的视图都应该更新自己
 					listNewsAdapter.notifyDataSetChanged();
 					Toast.makeText(mainActivity, "加载数据成功", 0).show();
 
 				} else {
-					//第一次取数据 刷新数据
+					// 第一次取数据 刷新数据
 					// 处理数据
 					processData(newsData);
 					if (isFresh) {
-						//设置listview头隐藏，新数据替换老数据
+						// 设置listview头隐藏，新数据替换老数据
 						lv_listnews.refreshStateFinish();
 						Toast.makeText(mainActivity, "刷新数据成功", 1).show();
 					}

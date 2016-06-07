@@ -14,5 +14,6 @@ public interface MyConstants {
 	String SERVERURL = "http://10.0.2.2:8080/zhbj";
 	String CONFIGFILE = "cachevalue";// sp的文件名
 	String ISSETUP = "issetup";// 是否设置向导界面设置过数据
+	String READNEWSIDS="readnewsids";//保存 读过的新闻id
 
 }
