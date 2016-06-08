@@ -38,7 +38,7 @@ import com.lidroid.xutils.view.annotation.ViewInject;
  * @author ltf
  * @创建时间2016-6-7上午10:05:10
  * @工程名SmartBJ
- * @描述      组图
+ * @描述           组图   相关操作
  * @svn提交者：$Auther$
  * @提交时间：${date}${time}
  * @当前版本：$Rev$
@@ -85,6 +85,10 @@ public class PhotosBaseNewsCenterPage extends BaseNewsCenterPage
 		return photos_root;
 	}
 
+	/**
+	 * 进行组图中   list 与 grid 进行切换的方法
+	 * @param ib_listOrGrid
+	 */
 	public void switchListViewOrGridView(ImageButton ib_listOrGrid) {
 		if (isShowList) {
 			//按钮的背景设置成list
@@ -94,13 +98,14 @@ public class PhotosBaseNewsCenterPage extends BaseNewsCenterPage
 			// 隐藏listView
 			gv_photos.setVisibility(View.VISIBLE);
 		} else {
-			//按钮的背景设置成list
+			//按钮的背景设置成grid
 			ib_listOrGrid.setImageResource(R.drawable.icon_pic_grid_type);
 			// 显示Gridview
 			lv_photos.setVisibility(View.VISIBLE);
 			// 隐藏listView
 			gv_photos.setVisibility(View.GONE);
 		}
+		//进行一次操作后进行取反
 		isShowList = !isShowList;
 	}
 
@@ -208,7 +213,7 @@ public class PhotosBaseNewsCenterPage extends BaseNewsCenterPage
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			// TODO Auto-generated method stub
-			// 自定义View 显示
+			// 自定义View 缓存显示
 			ViewHolder holder = null;
 
 			// 判断是否存在view缓存

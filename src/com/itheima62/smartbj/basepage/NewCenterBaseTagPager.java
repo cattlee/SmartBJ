@@ -1,11 +1,11 @@
-
-
 package com.itheima62.smartbj.basepage;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import android.text.TextUtils;
+import android.view.View;
+import android.view.View.OnClickListener;
 
 import com.google.gson.Gson;
 import com.itheima62.smartbj.activity.MainActivity;
@@ -32,23 +32,24 @@ import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
  *     @ svn提交者：$Author: gd $ @ 提交时间: $Date: 2015-07-04 17:38:44 +0800 (Sat, 04
  *     Jul 2015) $ @ 当前版本: $Rev: 33 $
  */
-public class NewCenterBaseTagPager extends BaseTagPage
-{
+public class NewCenterBaseTagPager extends BaseTagPage {
 	// 新闻中心要显示的四个页面
-	private List<BaseNewsCenterPage>	newsCenterPages	= new ArrayList<BaseNewsCenterPage>();
-	private NewsCenterData	newsCenterData;
+	private List<BaseNewsCenterPage> newsCenterPages = new ArrayList<BaseNewsCenterPage>();
+	private NewsCenterData newsCenterData;
 	private Gson gson;
 
 	public NewCenterBaseTagPager(MainActivity context) {
 		super(context);
 	}
 
+
 	@Override
 	public void initData() {
-		//1、获取本地数据，先加载缓存的数据，再去获取网络数据，防止断网情况下，无数据的显示。即添加数据的缓存功能,将缓存默认是这位空
-		String jsonCache = SpTools.getString(mainActivity, MyConstants.NEWSCENTERURL, "");
-		if(!TextUtils.isEmpty(jsonCache)){//TextUtils用于对字符串进行操作的类（拼接 判断）
-			//有本地数据，从本地取数据显示
+		// 1、获取本地数据，先加载缓存的数据，再去获取网络数据，防止断网情况下，无数据的显示。即添加数据的缓存功能,将缓存默认是这位空
+		String jsonCache = SpTools.getString(mainActivity,
+				MyConstants.NEWSCENTERURL, "");
+		if (!TextUtils.isEmpty(jsonCache)) {// TextUtils用于对字符串进行操作的类（拼接 判断）
+			// 有本地数据，从本地取数据显示
 			parseData(jsonCache);
 		}
 		// 2.获取网络数据
@@ -60,8 +61,9 @@ public class NewCenterBaseTagPager extends BaseTagPage
 					public void onSuccess(ResponseInfo<String> responseInfo) {
 						// 访问数据成功
 						String jsonData = responseInfo.result;
-						//数据保存到本地, MyConstants.NEWSCENTERURL 为网络地址   保存数据jsonData
-						SpTools.setString(mainActivity, MyConstants.NEWSCENTERURL, jsonData);
+						// 数据保存到本地, MyConstants.NEWSCENTERURL 为网络地址 保存数据jsonData
+						SpTools.setString(mainActivity,
+								MyConstants.NEWSCENTERURL, jsonData);
 						// System.out.println(jsonData);
 						// 3.解析数据
 						parseData(jsonData);
@@ -85,26 +87,26 @@ public class NewCenterBaseTagPager extends BaseTagPage
 	 *            从网络获取到的json数据
 	 */
 	protected void parseData(String jsonData) {
-		if(gson==null)
-		gson = new Gson();//防止多次重复初始化对象
+		if (gson == null)
+			gson = new Gson();// 防止多次重复初始化对象
 
-		newsCenterData = gson.fromJson(jsonData,
-				NewsCenterData.class);
+		newsCenterData = gson.fromJson(jsonData, NewsCenterData.class);
 
-		//4.数据的处理
+		// 4.数据的处理
 
 		// 在这里给左侧菜单设置数据
 		// System.out.println(newsCenterData.data.get(0).children.get(0).title);
 		mainActivity.getLeftMenuFragment().setLeftMenuData(newsCenterData.data);
-		//设置左侧菜单的监听回调
-		mainActivity.getLeftMenuFragment().setOnSwitchPageListener(new OnSwitchPageListener() {
-			
-			@Override
-			public void switchPage(int selectionIndex) {
-				System.out.println("直接掉自己实现...............");
-				NewCenterBaseTagPager.this.switchPage(selectionIndex);
-			}
-		});
+		// 设置左侧菜单的监听回调
+		mainActivity.getLeftMenuFragment().setOnSwitchPageListener(
+				new OnSwitchPageListener() {
+
+					@Override
+					public void switchPage(int selectionIndex) {
+						System.out.println("直接掉自己实现...............");
+						NewCenterBaseTagPager.this.switchPage(selectionIndex);
+					}
+				});
 
 		// 读取的数据封装到界面容器中，通过左侧菜单点击，显示不同的界面
 		// 根据服务的数据 创建四个页面（按顺序）
@@ -113,7 +115,8 @@ public class NewCenterBaseTagPager extends BaseTagPage
 			// 遍历四个新闻中心页面
 			switch (newsData.type) {
 			case 1:// 新闻页面
-				newsPage = new NewsBaseNewsCenterPage(mainActivity,newsCenterData.data.get(0).children);
+				newsPage = new NewsBaseNewsCenterPage(mainActivity,
+						newsCenterData.data.get(0).children);
 				break;
 			case 10:// 专题页面
 				newsPage = new TopicBaseNewsCenterPage(mainActivity);
@@ -136,28 +139,52 @@ public class NewCenterBaseTagPager extends BaseTagPage
 		// 控制四个页面的显示,默认选择第一个新闻页面
 		switchPage(0);
 	}
-	
-	
-	
 
 	/**
 	 * @param position
 	 *            根据位置，动态显示不同的新闻中心页面
 	 */
 	public void switchPage(int position) {
+		// 取出左侧新闻中心的菜单的 四个页面
 		BaseNewsCenterPage baseNewsCenterPage = newsCenterPages.get(position);
 
-		//显示数据
+		// 显示数据
 		// 设置本page的标题
 		tv_title.setText(newsCenterData.data.get(position).title);
 
-		//移动掉原来画的内容
+		// 移动掉原来画的内容
 		fl_content.removeAllViews();
-		
-		//初始化数据
+
+		// 初始化数据
 		baseNewsCenterPage.initData();
+
+		// 判断 如果是组图listorGraid切换按钮显示
+		// instanceof
+		// 运算符是用来在运行时指出对象（baseNewsCenterPage）是否是特定类（PhotosBaseNewsCenterPage组图）的一个实例
+		if (baseNewsCenterPage instanceof PhotosBaseNewsCenterPage){
+			//组图
+			// 显示listgrid切换的按钮显示
+			ib_listOrGrid.setVisibility(View.VISIBLE);
+			//给事件,点击做list和grid切换
+			//内部类 访问外部类 1、setTag设置标记  或者 2、设置final变量  。相当于将baseNewsCenterPage作为数据添加到  ib_listOrGrid
+			ib_listOrGrid.setTag(baseNewsCenterPage);
+			ib_listOrGrid.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// 获取标签
+					((PhotosBaseNewsCenterPage)ib_listOrGrid.getTag()).switchListViewOrGridView(ib_listOrGrid);
+				}
+			});
+			
+		} else {
+			// 隐藏listgrid切换的按钮显示
+			ib_listOrGrid.setVisibility(View.GONE);
+		}
+		
 		// 替换掉白纸
 		fl_content.addView(baseNewsCenterPage.getRoot());// 添加自己的内容到白纸上
 	}
+
 
 }

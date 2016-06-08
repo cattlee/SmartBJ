@@ -47,7 +47,8 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="5dip" >
-			<!-- listview和Gridview切换的按钮 -->
+            
+			<!--   listview和Gridview切换的按钮       -->
             <ImageButton
                 android:id="@+id/ib_base_content_listorgrid"
                 android:layout_width="wrap_content"
